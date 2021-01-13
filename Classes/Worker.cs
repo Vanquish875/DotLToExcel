@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using DotLToExcel.DotL;
 using DotLToExcel.Excel;
 using DotLToExcel.POCOS;
+using DotLToExcel.Mapping;
 
 namespace DotLToExcel.Classes
 {
     public class Worker
     {
         readonly string filePath;
-        private Mapper _mapper;
 
         List<Analog> analogs = new List<Analog>();
         List<Connection> connections = new List<Connection>();
@@ -20,80 +20,98 @@ namespace DotLToExcel.Classes
         List<Multistate> multistates = new List<Multistate>();
         List<Station> stations = new List<Station>();
         List<Message> messages = new List<Message>();
+        IDictionary<string, string> ConnectionRemote = new Dictionary<string, string>();
+        IDictionary<string, string> AnalogNames = new Dictionary<string, string>();
+        IDictionary<string, string> StatusNames = new Dictionary<string, string>();
+        Dictionary<string, string> OutputMessages = new Dictionary<string, string>();
 
-        public Worker(Mapper mapper, string filePath)
+        public Worker(string filePath)
         {
-            _mapper = mapper;
             this.filePath = filePath;
         }
 
         public void parseRemConnJoin()
         {
             Parser parser = new Parser();
+            RemConnJoinMapper mapper = new RemConnJoinMapper(); 
 
             //Call this to populate the remoteConnections dictionary to be used for mapping remotes.
-            _mapper.mapRemConnJoin(parser.processFile(filePath + @"\remconnjoin.l", RemConnFields.Fields));
+            ConnectionRemote = mapper.mapRemConnJoin(parser.processFile(filePath + @"\remconnjoin.l", RemConnFields.Fields));
         }
 
         public void parseMessages()
         {
             Parser parser = new Parser();
+            MessageMapper mapper = new MessageMapper();
 
             //Call this to map the messages
-            messages = _mapper.mapMessages(parser.processFile(filePath + @"\message.l", MessageFields.Fields));
+            messages = mapper.mapMessages(parser.processFile(filePath + @"\message.l", MessageFields.Fields));
+            OutputMessages = mapper.OutputMessages;
         }
 
         public void mapLegacyNames()
         {
-            //Call this to populate the dictionaries to be used for mapping legacyNames.
-            _mapper.mapLegacyNames(filePath);
+            LegacyNameMapper mapper = new LegacyNameMapper();
+
+            //Call this to populate the Analog Names dictionary.
+            AnalogNames = mapper.mapLegacyNames(filePath, "AnalogNames.csv");
+
+            //Call this to populate the Status Names dictionary.
+            StatusNames = mapper.mapLegacyNames(filePath, "StatusNames.csv");
         }
 
         public void mapStations()
         {
             Parser parser = new Parser();
+            StationMapper mapper = new StationMapper();
 
-            stations = _mapper.mapStation(parser.processFile(filePath + @"\station.l", StationFields.Fields));
+            stations = mapper.mapStation(parser.processFile(filePath + @"\station.l", StationFields.Fields));
         }
 
         public void mapConnections()
         {
             Parser parser = new Parser();
+            ConnectionMapper mapper = new ConnectionMapper();
 
-            connections = _mapper.mapConnection(parser.processFile(filePath + @"\connection.l", ConnectionFields.Fields));
+            connections = mapper.mapConnection(parser.processFile(filePath + @"\connection.l", ConnectionFields.Fields));
         }
 
         public void mapRemotes()
         {
             Parser parser = new Parser();
+            RemoteMapper mapper = new RemoteMapper();
 
-            remotes = _mapper.mapRemote(parser.processFile(filePath + @"\remote.l", RemoteFields.Fields));
+            remotes = mapper.mapRemote(parser.processFile(filePath + @"\remote.l", RemoteFields.Fields), ConnectionRemote);
         }
 
         public void mapAnalogs()
         {
             Parser parser = new Parser();
+            AnalogMapper mapper = new AnalogMapper();
 
-            analogs = _mapper.mapAnalog(parser.processFile(filePath + @"\analog.l", AnalogFields.Fields));
+            analogs = mapper.mapAnalog(parser.processFile(filePath + @"\analog.l", AnalogFields.Fields), AnalogNames);
         }
 
         public void mapRates()
         {
             Parser parser = new Parser();
+            RateMapper mapper = new RateMapper();
 
-            rates = _mapper.mapRate(parser.processFile(filePath + @"\rate.l", RateFields.Fields));
+            rates = mapper.mapRate(parser.processFile(filePath + @"\rate.l", RateFields.Fields), AnalogNames);
         }
         public void mapStatus()
         {
             Parser parser = new Parser();
+            StatusMapper mapper = new StatusMapper();
 
-            status = _mapper.mapStatus(parser.processFile(filePath + @"\status.l", StatusFields.Fields));
+            status = mapper.mapStatus(parser.processFile(filePath + @"\status.l", StatusFields.Fields), StatusNames, OutputMessages);
         }
         public void mapMultistate()
         {
             Parser parser = new Parser();
+            MultistateMapper mapper = new MultistateMapper();
 
-            multistates = _mapper.mapMultistate(parser.processFile(filePath + @"\multistate.l", MultistateFields.Fields));
+            multistates = mapper.mapMultistate(parser.processFile(filePath + @"\multistate.l", MultistateFields.Fields));
         }
 
         public void callExcel()
