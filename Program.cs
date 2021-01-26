@@ -12,8 +12,7 @@ namespace DotLToExcel
                 if (Helper.checkForDotLFiles(Helper.verifyArgumentsProvided(args)))
                 {
                     //Start the application.
-                    Mapper mapper = new Mapper();
-                    Worker parseFiles = new Worker(mapper, Helper.filePath);
+                    Worker parseFiles = new Worker(Helper.filePath);
 
                     //Parse Remote Connection record.
                     Console.WriteLine("Parsing Remote Connection table.");
