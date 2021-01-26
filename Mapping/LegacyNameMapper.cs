@@ -10,19 +10,12 @@ namespace DotLToExcel.Mapping
 {
     public class LegacyNameMapper
     {
-        public IDictionary<string, string> mapLegacyNames(string filePath, string fileName)
+        public Dictionary<string, string> mapLegacyNames(string filePath, string fileName)
         {
-            try
-            {
-                //Map legacy names.
-                return File.ReadLines(filePath + @"\" + fileName)
-                .Select(line => line.Split(','))
-                .ToDictionary(line => line[0], line => line[1]);
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.ToString());
-            } 
+            //Map legacy names.
+            return File.ReadLines(filePath + @"\" + fileName)
+            .Select(line => line.Split(','))
+            .ToDictionary(line => line[0], line => line[1]);
         }
     }
 }

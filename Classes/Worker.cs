@@ -20,9 +20,9 @@ namespace DotLToExcel.Classes
         List<Multistate> multistates = new List<Multistate>();
         List<Station> stations = new List<Station>();
         List<Message> messages = new List<Message>();
-        IDictionary<string, string> ConnectionRemote = new Dictionary<string, string>();
-        IDictionary<string, string> AnalogNames = new Dictionary<string, string>();
-        IDictionary<string, string> StatusNames = new Dictionary<string, string>();
+        Dictionary<string, string> ConnectionRemote = new Dictionary<string, string>();
+        Dictionary<string, string> AnalogNames = new Dictionary<string, string>();
+        Dictionary<string, string> StatusNames = new Dictionary<string, string>();
         Dictionary<string, string> OutputMessages = new Dictionary<string, string>();
 
         public Worker(string filePath)

@@ -51,13 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Mapper.cs" />
     <Compile Include="Classes\Worker.cs" />
     <Compile Include="DotL\MessageFields.cs" />
     <Compile Include="DotL\MultistateFields.cs" />
     <Compile Include="DotL\RemConnFields.cs" />
     <Compile Include="DotL\StationFields.cs" />
     <Compile Include="Excel\ExcelManager.cs" />
+    <Compile Include="Mapping\AnalogMapper.cs" />
+    <Compile Include="Mapping\ConnectionMapper.cs" />
+    <Compile Include="Mapping\LegacyNameMapper.cs" />
+    <Compile Include="Mapping\MessageMapper.cs" />
+    <Compile Include="Mapping\MultistateMapper.cs" />
+    <Compile Include="Mapping\RateMapper.cs" />
+    <Compile Include="Mapping\RemConnJoinMapper.cs" />
+    <Compile Include="Mapping\RemoteMapper.cs" />
+    <Compile Include="Mapping\StationMapper.cs" />
+    <Compile Include="Mapping\StatusMapper.cs" />
     <Compile Include="POCOS\Analog.cs" />
     <Compile Include="Classes\Parser.cs" />
     <Compile Include="DotL\AnalogFields.cs" />

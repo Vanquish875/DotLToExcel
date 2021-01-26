@@ -10,7 +10,7 @@ namespace DotLToExcel.Mapping
 {
     public class StatusMapper
     {
-        public List<Digital> mapStatus(IList<string> data, IDictionary<string, string> StatusNames, IDictionary<string, string> Messages)
+        public List<Digital> mapStatus(IList<string> data, Dictionary<string, string> StatusNames, Dictionary<string, string> Messages)
         {
             int FieldLength = StatusFields.Fields.Length;
             List<Digital> digital = new List<Digital>();

@@ -10,7 +10,7 @@ namespace DotLToExcel.Mapping
 {
     public class RemoteMapper
     {
-        public List<Remote> mapRemote(IList<string> data, IDictionary<string, string> ConnectionRemote)
+        public List<Remote> mapRemote(IList<string> data, Dictionary<string, string> ConnectionRemote)
         {
             int FieldLength = RemoteFields.Fields.Length;
             List<Remote> remotes = new List<Remote>();

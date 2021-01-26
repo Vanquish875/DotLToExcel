@@ -10,7 +10,7 @@ namespace DotLToExcel.Mapping
 {
     public class MessageMapper
     {
-        Dictionary<string, string> OutputMessages = new Dictionary<string, string>();
+        public Dictionary<string, string> OutputMessages = new Dictionary<string, string>();
 
         public List<Message> mapMessages(IList<string> data)
         {
