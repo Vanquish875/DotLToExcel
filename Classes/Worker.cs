@@ -124,7 +124,7 @@ namespace DotLToExcel.Classes
         public void CallExcel()
         {
             ExcelManager excel = new ExcelManager();
-            excel.writeToExcel(stations, remotes, connections, analogs, rates, status, multistates, messages);
+            excel.WriteToExcel(stations, remotes, connections, analogs, rates, status, multistates, messages);
         }
     }
 }

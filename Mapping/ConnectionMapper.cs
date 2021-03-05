@@ -10,7 +10,7 @@ namespace DotLToExcel.Mapping
 {
     public class ConnectionMapper
     {
-        public List<Connection> MapConnection(IList<string> data)
+        public IEnumerable<Connection> MapConnection(IList<string> data)
         {
             int FieldLength = ConnectionFields.Fields.Length;
             var connections = new List<Connection>();

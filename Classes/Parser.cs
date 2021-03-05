@@ -5,9 +5,9 @@ namespace DotLToExcel.Classes
 {
     public class Parser
     {
-        public List<string> ProcessFile(string filePath, string[] fields)
+        public IEnumerable<string> ProcessFile(string filePath, string[] fields)
         {
-            List<string> data = new List<string>();
+            var data = new List<string>();
             string line = "";
 
             using (StreamReader readFile = new StreamReader(filePath))
@@ -16,9 +16,9 @@ namespace DotLToExcel.Classes
                 {
                     foreach (var field in fields)
                     {
-                        if (Helper.checkFields(line, field))
+                        if (Helper.CheckFields(line, field))
                         {
-                            data.Add(Helper.cleanFieldString(line, field));
+                            data.Add(Helper.CleanFieldString(line, field));
                         }
                     }
                 }

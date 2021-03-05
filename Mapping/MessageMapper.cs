@@ -12,7 +12,7 @@ namespace DotLToExcel.Mapping
     {
         public Dictionary<string, string> OutputMessages = new Dictionary<string, string>();
 
-        public List<Message> MapMessages(IList<string> data)
+        public IEnumerable<Message> MapMessages(IList<string> data)
         {
             int FieldLength = MessageFields.Fields.Length;
             var messages = new List<Message>();

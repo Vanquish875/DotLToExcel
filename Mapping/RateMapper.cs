@@ -11,7 +11,7 @@ namespace DotLToExcel.Mapping
     public class RateMapper
     {
 
-        public List<Rate> MapRate(IList<string> data, Dictionary<string, string> RateNames)
+        public IEnumerable<Rate> MapRate(IList<string> data, Dictionary<string, string> RateNames)
         {
             int FieldLength = RateFields.Fields.Length;
             var rates = new List<Rate>();

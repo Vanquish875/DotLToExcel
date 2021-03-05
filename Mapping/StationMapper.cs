@@ -10,7 +10,7 @@ namespace DotLToExcel.Mapping
 {
     public class StationMapper
     { 
-        public List<Station> MapStation(IList<string> data)
+        public IEnumerable<Station> MapStation(IList<string> data)
         {
             int FieldLength = StationFields.Fields.Length;
             var stations = new List<Station>();

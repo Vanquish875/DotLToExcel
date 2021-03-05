@@ -5,7 +5,7 @@ namespace DotLToExcel
 {
     public static class Helper
     {
-        public static string verifyArgumentsProvided(string[] arguments)
+        public static string VerifyArgumentsProvided(string[] arguments)
         {
             if (arguments != null)
             {
@@ -15,7 +15,7 @@ namespace DotLToExcel
             return filePath = Directory.GetCurrentDirectory();
         }
 
-        public static bool checkForDotLFiles(string path)
+        public static bool CheckForDotLFiles(string path)
         {
             bool connectionDotLExists = File.Exists(path + @"\connection.l");
             bool remoteDotLExists = File.Exists(path + @"\remote.l");
@@ -37,12 +37,12 @@ namespace DotLToExcel
             return false;
         }
 
-        public static string cleanFieldString(string line, string field)
+        public static string CleanFieldString(string line, string field)
         {
             return RemoveWhiteSpace(line.Replace(field, ""));
         }
 
-        public static bool checkFields(string line, string field)
+        public static bool CheckFields(string line, string field)
         {
             if (line.StartsWith(field))
                 return true;
@@ -55,7 +55,7 @@ namespace DotLToExcel
             return input.Trim();
         }
 
-        public static string returnValFromDictionary(string key, Dictionary<string, string> dictionary)
+        public static string ReturnValFromDictionary(string key, Dictionary<string, string> dictionary)
         {
             if(returnBoolKeyExistsDictionary(key, dictionary))
             {
@@ -65,7 +65,7 @@ namespace DotLToExcel
             return "";
         }
 
-        public static bool returnBoolKeyExistsDictionary(string remote, Dictionary<string, string> remoConJoin)
+        public static bool ReturnBoolKeyExistsDictionary(string remote, Dictionary<string, string> remoConJoin)
         {
             if (remoConJoin.ContainsKey(remote))
             {

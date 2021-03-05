@@ -9,8 +9,8 @@ namespace DotLToExcel
         {
             try
             {
-                var filePath = Helper.verifyArgumentsProvided(args);
-                if (Helper.checkForDotLFiles(filePath))
+                var filePath = Helper.VerifyArgumentsProvided(args);
+                if (Helper.CheckForDotLFiles(filePath))
                 {
                     var parseFiles = new Worker(filePath);
                     

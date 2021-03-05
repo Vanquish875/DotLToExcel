@@ -7,7 +7,7 @@ namespace DotLToExcel.Excel
 {
     public class ExcelManager
     {
-       public void writeToExcel(IList<Station> stations, IList<Remote> remotes, IList<Connection> connections, IList<Analog> analogs, 
+       public void WriteToExcel(IList<Station> stations, IList<Remote> remotes, IList<Connection> connections, IList<Analog> analogs, 
            IList<Rate> rates, IList<Digital> status, IList<Multistate> multistates, IList<Message> messages)
        {
             using (ExcelPackage excel = new ExcelPackage())

@@ -11,7 +11,7 @@ namespace DotLToExcel.Mapping
     public class AnalogMapper
     {
 
-        public List<Analog> MapAnalog(IList<string> data, Dictionary<string, string> AnalogNames)
+        public IEnumerable<Analog> MapAnalog(IList<string> data, Dictionary<string, string> AnalogNames)
         {
             int FieldLength = AnalogFields.Fields.Length;
             var analogs = new List<Analog>();
