@@ -5,18 +5,14 @@ namespace DotLToExcel
 {
     public static class Helper
     {
-        public static string filePath = "";
-
         public static string verifyArgumentsProvided(string[] arguments)
         {
-            if (arguments != null && arguments.Length > 0)
+            if (arguments != null)
             {
                 return filePath = arguments[0];
             }
-            else
-            {
-                return filePath = Directory.GetCurrentDirectory();
-            }
+
+            return filePath = Directory.GetCurrentDirectory();
         }
 
         public static bool checkForDotLFiles(string path)
@@ -37,8 +33,8 @@ namespace DotLToExcel
             if (connectionDotLExists && remoteDotLExists && remConnJoinDotLExists && analogDotLExists && rateDotLExists && statusDotLExists && stationDotLExists 
                 && multistateDotLExists && AnalogNames && RateNames && StatusNames && messageDotLExists)
                 return true;
-            else
-                return false;
+            
+            return false;
         }
 
         public static string cleanFieldString(string line, string field)
@@ -50,8 +46,8 @@ namespace DotLToExcel
         {
             if (line.StartsWith(field))
                 return true;
-            else
-                return false;
+
+            return false;
         }
 
         public static string RemoveWhiteSpace(string input)
@@ -65,9 +61,8 @@ namespace DotLToExcel
             {
                 return dictionary[key];
             }
-            {
-                return "";
-            }
+            
+            return "";
         }
 
         public static bool returnBoolKeyExistsDictionary(string remote, Dictionary<string, string> remoConJoin)
@@ -76,9 +71,8 @@ namespace DotLToExcel
             {
                 return true;
             }
-            {
-                return false;
-            }
+            
+            return false;
         }
     }
 }

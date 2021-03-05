@@ -9,45 +9,44 @@ namespace DotLToExcel
         {
             try
             {
-                if (Helper.checkForDotLFiles(Helper.verifyArgumentsProvided(args)))
+                var filePath = Helper.verifyArgumentsProvided(args);
+                if (Helper.checkForDotLFiles(filePath))
                 {
-                    //Start the application.
-                    Worker parseFiles = new Worker(Helper.filePath);
-
-                    //Parse Remote Connection record.
+                    var parseFiles = new Worker(filePath);
+                    
                     Console.WriteLine("Parsing Remote Connection table.");
-                    parseFiles.parseRemConnJoin();
-                    //Parse Messages.
-                    Console.WriteLine("Parsing Message table.");
-                    parseFiles.parseMessages();
-                    //Map legacy names.
-                    Console.WriteLine("Mapping legacy names.");
-                    parseFiles.mapLegacyNames();
-                    //Map Stations.
-                    Console.WriteLine("Mapping Stations.");
-                    parseFiles.mapStations();
-                    //Map Connections.
-                    Console.WriteLine("Mapping Connections.");
-                    parseFiles.mapConnections();
-                    //Map Remotes.
-                    Console.WriteLine("Mapping Remotes.");
-                    parseFiles.mapRemotes();
-                    //Map Analogs
-                    Console.WriteLine("Mapping Analogs.");
-                    parseFiles.mapAnalogs();
-                    //Map Rates.
-                    Console.WriteLine("Mapping Rates.");
-                    parseFiles.mapRates();
-                    //Map Status.
-                    Console.WriteLine("Mapping Status.");
-                    parseFiles.mapStatus();
-                    //Map Multistate.
-                    Console.WriteLine("Mapping Multistate.");
-                    parseFiles.mapMultistate();
+                    parseFiles.ParseRemConnJoin();
 
-                    //Call Data Excel.
+                    Console.WriteLine("Parsing Message table.");
+                    parseFiles.ParseMessages();
+
+                    Console.WriteLine("Mapping legacy names.");
+                    parseFiles.MapLegacyNames();
+
+                    Console.WriteLine("Mapping Stations.");
+                    parseFiles.MapStations();
+
+                    Console.WriteLine("Mapping Connections.");
+                    parseFiles.MapConnections();
+
+                    Console.WriteLine("Mapping Remotes.");
+                    parseFiles.MapRemotes();
+
+                    Console.WriteLine("Mapping Analogs.");
+                    parseFiles.MapAnalogs();
+
+                    Console.WriteLine("Mapping Rates.");
+                    parseFiles.MapRates();
+
+                    Console.WriteLine("Mapping Status.");
+                    parseFiles.MapStatus();
+
+                    Console.WriteLine("Mapping Multistate.");
+                    parseFiles.MapMultistate();
+
+
                     Console.WriteLine("Creating Excel file.");
-                    parseFiles.callExcel();
+                    parseFiles.CallExcel();
                     Console.WriteLine("Finished!");
                     Console.ReadLine();
                 }

@@ -10,7 +10,7 @@ namespace DotLToExcel.Mapping
 {
     public class RemConnJoinMapper
     {
-        public Dictionary<string,string> mapRemConnJoin(IList<string> data)
+        public Dictionary<string,string> MapRemConnJoin(IList<string> data)
         {
             int FieldLength = RemConnFields.Fields.Length;
             Dictionary<string, string> ConnectionRemote = new Dictionary<string, string>();

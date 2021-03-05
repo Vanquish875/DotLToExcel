@@ -10,7 +10,7 @@ namespace DotLToExcel.Mapping
 {
     public class MultistateMapper
     {
-        public List<Multistate> mapMultistate(IList<string> data)
+        public List<Multistate> MapMultistate(IList<string> data)
         {
             int FieldLength = MultistateFields.Fields.Length;
             List<Multistate> digital = new List<Multistate>();

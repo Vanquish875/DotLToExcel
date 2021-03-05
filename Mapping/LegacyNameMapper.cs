@@ -10,7 +10,7 @@ namespace DotLToExcel.Mapping
 {
     public class LegacyNameMapper
     {
-        public Dictionary<string, string> mapLegacyNames(string filePath, string fileName)
+        public Dictionary<string, string> MapLegacyNames(string filePath, string fileName)
         {
             //Map legacy names.
             return File.ReadLines(filePath + @"\" + fileName)

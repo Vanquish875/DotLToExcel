@@ -5,7 +5,7 @@ namespace DotLToExcel.Classes
 {
     public class Parser
     {
-        public List<string> processFile(string filePath, string[] fields)
+        public List<string> ProcessFile(string filePath, string[] fields)
         {
             List<string> data = new List<string>();
             string line = "";
