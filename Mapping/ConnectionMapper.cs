@@ -13,20 +13,22 @@ namespace DotLToExcel.Mapping
         public List<Connection> MapConnection(IList<string> data)
         {
             int FieldLength = ConnectionFields.Fields.Length;
-            List<Connection> connections = new List<Connection>();
+            var connections = new List<Connection>();
 
             try
             {
                 for(int i = 0; i < data.Count; i += FieldLength)
                 {
-                    Connection connection = new Connection();
-                    connection.Name = data[i];
-                    connection.Omnicomm = data[i + 1];
-                    connection.Group = data[i + 2];
-                    connection.Description = data[i + 3];
-                    connection.Message = data[i + 4];
-                    connection.IP = data[i + 5];
-                    connection.Port = Convert.ToInt32(data[i + 6]);
+                    var connection = new Connection
+                    {
+                        Name = data[i],
+                        Omnicomm = data[i + 1],
+                        Group = data[i + 2],
+                        Description = data[i + 3],
+                        Message = data[i + 4],
+                        IP = data[i + 5],
+                        Port = Convert.ToInt32(data[i + 6])
+                    };
                     connections.Add(connection);
                 }
             }

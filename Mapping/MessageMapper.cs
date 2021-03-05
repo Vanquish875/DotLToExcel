@@ -15,13 +15,13 @@ namespace DotLToExcel.Mapping
         public List<Message> MapMessages(IList<string> data)
         {
             int FieldLength = MessageFields.Fields.Length;
-            List<Message> messages = new List<Message>();
+            var messages = new List<Message>();
 
             try
             {
                 for(int i = 0; i < data.Count; i += FieldLength)
                 {
-                    Message message = new Message();
+                    var message = new Message();
                     message.name = data[i];
                     message.setName = data[i + 1];
                     message.fg = data[i + 2];

@@ -13,36 +13,37 @@ namespace DotLToExcel.Mapping
         public List<Station> MapStation(IList<string> data)
         {
             int FieldLength = StationFields.Fields.Length;
-            List<Station> stations = new List<Station>();
+            var stations = new List<Station>();
 
             try
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    Station station = new Station();
-                    station.Name = data[i];
-                    station.Group = data[i + 1];
-                    station.Dataset = data[i + 2];
-                    station.Description = data[i + 3];
-                    station.Message = data[i + 4];
-                    station.Address1 = data[i + 5];
-                    station.Address2 = data[i + 6];
-                    station.City = data[i + 7];
-                    station.DownStreamStation = data[i + 8];
-                    station.Fax = data[i + 9];
-					station.MilePost = data[i + 10];
-                    station.MeterName = data[i + 11];
-                    station.MeterNumber = data[i + 12];
-                    station.StationNumber = Convert.ToInt32(data[i + 13]);
-                    station.Phone1 = data[i + 14];
-                    station.Phone2 = data[i + 15];
-                    station.SchematicDisplayName = data[i + 16];
-                    station.State = data[i + 17];
-                    station.StationType = data[i + 18];
-                    station.Templatename = data[i + 19];
-					station.UpstreamStation = data[i + 20];
-                    station.Zip = data[i + 21];
-
+                    var station = new Station
+                    {
+                        Name = data[i],
+                        Group = data[i + 1],
+                        Dataset = data[i + 2],
+                        Description = data[i + 3],
+                        Message = data[i + 4],
+                        Address1 = data[i + 5],
+                        Address2 = data[i + 6],
+                        City = data[i + 7],
+                        DownStreamStation = data[i + 8],
+                        Fax = data[i + 9],
+					    MilePost = data[i + 10],
+                        MeterName = data[i + 11],
+                        MeterNumber = data[i + 12],
+                        StationNumber = Convert.ToInt32(data[i + 13]),
+                        Phone1 = data[i + 14],
+                        Phone2 = data[i + 15],
+                        SchematicDisplayName = data[i + 16],
+                        State = data[i + 17],
+                        StationType = data[i + 18],
+                        Templatename = data[i + 19],
+					    UpstreamStation = data[i + 20],
+                        Zip = data[i + 21]
+                    };
                     stations.Add(station);
                 }
             }

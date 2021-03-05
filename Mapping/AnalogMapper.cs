@@ -14,54 +14,55 @@ namespace DotLToExcel.Mapping
         public List<Analog> MapAnalog(IList<string> data, Dictionary<string, string> AnalogNames)
         {
             int FieldLength = AnalogFields.Fields.Length;
-            List<Analog> analogs = new List<Analog>();
+            var analogs = new List<Analog>();
 
             try
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    Analog analog = new Analog();
-                    analog.LegacyName = Helper.returnValFromDictionary(data[i], AnalogNames);
-                    analog.NewName = data[i];
-                    analog.Remote = data[i + 1];
-                    analog.Group = data[i + 2];
-                    analog.dataset = data[i + 3];
-                    analog.Station = data[i + 4];
-                    analog.Message = data[i + 5];
-                    analog.SafetyPoint = data[i + 6];
-                    analog.HasInput = data[i + 7];
-                    analog.HasOutput = data[i + 8];
-                    analog.OutputDataType = data[i + 9];
-                    analog.MinRaw = Convert.ToInt32(data[i + 10]);
-                    analog.MaxRaw = data[i + 11];
-                    analog.MinEGU = Convert.ToInt32(data[i + 12]);
-                    analog.MaxEGU = data[i + 13];
-                    analog.ConvertRawToEGU = data[i + 14];
-                    analog.EngineeringUnits = data[i + 15];
-                    analog.InstrumentFailCheck = data[i + 16];
-                    analog.LoLimit = Convert.ToDouble(data[i + 17]);
-                    analog.HiLimit = Convert.ToDouble(data[i + 18]);
-                    analog.LoLoLimit = Convert.ToDouble(data[i + 19]);
-                    analog.HiHiLimit = Convert.ToDouble(data[i + 20]);
-                    analog.HiCheck = data[i + 21];
-                    analog.HiHiCheck = data[i + 22];
-                    analog.LoCheck = data[i + 23];
-                    analog.LoLoCheck = data[i + 24];
-                    analog.InputCoordinates = data[i + 25];
-                    analog.InputDataType = data[i + 26];
-                    analog.MinRawOutput = Convert.ToInt32(data[i + 27]);
-                    analog.MaxRawOutput = data[i + 28];
-                    analog.MinEGUOutput = Convert.ToInt32(data[i + 29]);
-                    analog.MaxEGUOutput = data[i + 30];
-                    analog.ConvertRawToEGUOutput = data[i + 31];
-                    analog.OutputCoordinates = data[i + 32];
-                    analog.Description = data[i + 33];
-                    analog.ScanBlock = Convert.ToInt16(data[i + 34]);
-                    analog.CIP = data[i + 35];
-                    analog.ABCIPDataType = data[i + 36];
-                    analog.ShortDescription = data[i + 37];
-                    analog.DisplayOrder = Convert.ToInt32(data[i + 38]);
-
+                    var analog = new Analog
+                    {
+                        LegacyName = Helper.returnValFromDictionary(data[i], AnalogNames),
+                        NewName = data[i],
+                        Remote = data[i + 1],
+                        Group = data[i + 2],
+                        dataset = data[i + 3],
+                        Station = data[i + 4],
+                        Message = data[i + 5],
+                        SafetyPoint = data[i + 6],
+                        HasInput = data[i + 7],
+                        HasOutput = data[i + 8],
+                        OutputDataType = data[i + 9],
+                        MinRaw = Convert.ToInt32(data[i + 10]),
+                        MaxRaw = data[i + 11],
+                        MinEGU = Convert.ToInt32(data[i + 12]),
+                        MaxEGU = data[i + 13],
+                        ConvertRawToEGU = data[i + 14],
+                        EngineeringUnits = data[i + 15],
+                        InstrumentFailCheck = data[i + 16],
+                        LoLimit = Convert.ToDouble(data[i + 17]),
+                        HiLimit = Convert.ToDouble(data[i + 18]),
+                        LoLoLimit = Convert.ToDouble(data[i + 19]),
+                        HiHiLimit = Convert.ToDouble(data[i + 20]),
+                        HiCheck = data[i + 21],
+                        HiHiCheck = data[i + 22],
+                        LoCheck = data[i + 23],
+                        LoLoCheck = data[i + 24],
+                        InputCoordinates = data[i + 25],
+                        InputDataType = data[i + 26],
+                        MinRawOutput = Convert.ToInt32(data[i + 27]),
+                        MaxRawOutput = data[i + 28],
+                        MinEGUOutput = Convert.ToInt32(data[i + 29]),
+                        MaxEGUOutput = data[i + 30],
+                        ConvertRawToEGUOutput = data[i + 31],
+                        OutputCoordinates = data[i + 32],
+                        Description = data[i + 33],
+                        ScanBlock = Convert.ToInt16(data[i + 34]),
+                        CIP = data[i + 35],
+                        ABCIPDataType = data[i + 36],
+                        ShortDescription = data[i + 37],
+                        DisplayOrder = Convert.ToInt32(data[i + 38])
+                    };
                     analogs.Add(analog);
                 }
             }
