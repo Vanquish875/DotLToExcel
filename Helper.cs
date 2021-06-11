@@ -9,10 +9,10 @@ namespace DotLToExcel
         {
             if (arguments != null)
             {
-                return filePath = arguments[0];
+                return arguments[0];
             }
 
-            return filePath = Directory.GetCurrentDirectory();
+            return Directory.GetCurrentDirectory();
         }
 
         public static bool CheckForDotLFiles(string path)
@@ -30,10 +30,10 @@ namespace DotLToExcel
             bool StatusNames = File.Exists(path + @"\StatusNames.csv");
             bool messageDotLExists = File.Exists(path + @"\message.l");
 
-            if (connectionDotLExists && remoteDotLExists && remConnJoinDotLExists && analogDotLExists && rateDotLExists && statusDotLExists && stationDotLExists 
+            if (connectionDotLExists && remoteDotLExists && remConnJoinDotLExists && analogDotLExists && rateDotLExists && statusDotLExists && stationDotLExists
                 && multistateDotLExists && AnalogNames && RateNames && StatusNames && messageDotLExists)
                 return true;
-            
+
             return false;
         }
 
@@ -57,11 +57,11 @@ namespace DotLToExcel
 
         public static string ReturnValFromDictionary(string key, Dictionary<string, string> dictionary)
         {
-            if(returnBoolKeyExistsDictionary(key, dictionary))
+            if (ReturnBoolKeyExistsDictionary(key, dictionary))
             {
                 return dictionary[key];
             }
-            
+
             return "";
         }
 
@@ -71,7 +71,7 @@ namespace DotLToExcel
             {
                 return true;
             }
-            
+
             return false;
         }
     }

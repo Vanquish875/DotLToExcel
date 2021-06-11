@@ -1,17 +1,13 @@
-﻿using System;
+﻿using DotLToExcel.DotL;
+using System;
 using System.Collections.Generic;
-using DotLToExcel.POCOS;
-using DotLToExcel.DotL;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Animation;
 
 namespace DotLToExcel.Mapping
 {
     public class AnalogMapper
     {
 
-        public IEnumerable<Analog> MapAnalog(IList<string> data, Dictionary<string, string> AnalogNames)
+        public List<Analog> MapAnalog(IList<string> data, Dictionary<string, string> AnalogNames)
         {
             int FieldLength = AnalogFields.Fields.Length;
             var analogs = new List<Analog>();
@@ -22,7 +18,7 @@ namespace DotLToExcel.Mapping
                 {
                     var analog = new Analog
                     {
-                        LegacyName = Helper.returnValFromDictionary(data[i], AnalogNames),
+                        LegacyName = Helper.ReturnValFromDictionary(data[i], AnalogNames),
                         NewName = data[i],
                         Remote = data[i + 1],
                         Group = data[i + 2],
@@ -66,7 +62,7 @@ namespace DotLToExcel.Mapping
                     analogs.Add(analog);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }

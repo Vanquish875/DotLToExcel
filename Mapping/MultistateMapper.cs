@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DotLToExcel.DotL;
 using DotLToExcel.POCOS;
-using DotLToExcel.DotL;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Animation;
+using System;
+using System.Collections.Generic;
 
 namespace DotLToExcel.Mapping
 {
     public class MultistateMapper
     {
-        public IEnumerable<Multistate> MapMultistate(IList<string> data)
+        public List<Multistate> MapMultistate(IList<string> data)
         {
             int FieldLength = MultistateFields.Fields.Length;
             var digital = new List<Multistate>();
@@ -31,7 +28,7 @@ namespace DotLToExcel.Mapping
                         SafetyRelatedPoint = data[i + 7],
                         Description = data[i + 8],
                         NumberOfInputBits = Convert.ToInt32(data[i + 21]),
-                        CoordinatesBit1 = data[i + 9];
+                        CoordinatesBit1 = data[i + 9],
                         BitNumberBit1 = Convert.ToInt32(data[i + 22]),
                         CoordinatesBit2 = data[i + 10],
                         BitNumberBit2 = Convert.ToInt32(data[i + 23]),

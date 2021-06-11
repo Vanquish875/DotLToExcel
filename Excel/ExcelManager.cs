@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using OfficeOpenXml;
+﻿using DotLToExcel.POCOS;
+using System.Collections.Generic;
 using System.IO;
-using DotLToExcel.POCOS;
 
 namespace DotLToExcel.Excel
 {
     public class ExcelManager
     {
-       public void WriteToExcel(IList<Station> stations, IList<Remote> remotes, IList<Connection> connections, IList<Analog> analogs, 
-           IList<Rate> rates, IList<Digital> status, IList<Multistate> multistates, IList<Message> messages)
-       {
+        public void WriteToExcel(IList<Station> stations, IList<Remote> remotes, IList<Connection> connections, IList<Analog> analogs,
+            IList<Rate> rates, IList<Digital> status, IList<Multistate> multistates, IList<Message> messages)
+        {
             using (ExcelPackage excel = new ExcelPackage())
             {
                 excel.Workbook.Worksheets.Add("Station");
