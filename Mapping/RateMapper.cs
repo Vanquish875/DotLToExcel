@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DotLToExcel.DotL;
 using DotLToExcel.POCOS;
-using DotLToExcel.DotL;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Animation;
+using System;
+using System.Collections.Generic;
 
 namespace DotLToExcel.Mapping
 {
     public class RateMapper
     {
 
-        public IEnumerable<Rate> MapRate(IList<string> data, Dictionary<string, string> RateNames)
+        public List<Rate> MapRate(IList<string> data, Dictionary<string, string> RateNames)
         {
             int FieldLength = RateFields.Fields.Length;
             var rates = new List<Rate>();
 
             try
             {
-                for(int i = 0; i < data.Count; i += FieldLength)
+                for (int i = 0; i < data.Count; i += FieldLength)
                 {
                     var rate = new Rate
                     {
-                        LegacyName = Helper.returnValFromDictionary(data[i], RateNames);
+                        LegacyName = Helper.ReturnValFromDictionary(data[i], RateNames),
                         NewName = data[i],
                         Remote = data[i + 1],
                         Group = data[i + 2],
@@ -57,7 +54,7 @@ namespace DotLToExcel.Mapping
                     rates.Add(rate);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }

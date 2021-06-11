@@ -5,20 +5,20 @@ namespace DotLToExcel.Classes
 {
     public class Parser
     {
-        public IEnumerable<string> ProcessFile(string filePath, string[] fields)
+        public List<string> ProcessFile(string filePath, string[] fields)
         {
             var data = new List<string>();
-            string line = "";
 
             using (StreamReader readFile = new StreamReader(filePath))
             {
-                while ((line = readFile.ReadLine()) != null)
+                string s = string.Empty;
+                while ((s = readFile.ReadLine()) != null)
                 {
                     foreach (var field in fields)
                     {
-                        if (Helper.CheckFields(line, field))
+                        if (Helper.CheckFields(s, field))
                         {
-                            data.Add(Helper.CleanFieldString(line, field));
+                            data.Add(Helper.CleanFieldString(s, field));
                         }
                     }
                 }

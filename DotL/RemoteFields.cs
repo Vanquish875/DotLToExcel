@@ -2,7 +2,7 @@
 {
     public static class RemoteFields
     {
-        public static string[] Fields = 
+        public static string[] Fields =
         {
             "name",
             "group ",

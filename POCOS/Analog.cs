@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DotLToExcel
+﻿namespace DotLToExcel
 {
     public class Analog
     {

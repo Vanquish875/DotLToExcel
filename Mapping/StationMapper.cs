@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DotLToExcel.DotL;
 using DotLToExcel.POCOS;
-using DotLToExcel.DotL;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Animation;
+using System;
+using System.Collections.Generic;
 
 namespace DotLToExcel.Mapping
 {
     public class StationMapper
-    { 
-        public IEnumerable<Station> MapStation(IList<string> data)
+    {
+        public List<Station> MapStation(IList<string> data)
         {
             int FieldLength = StationFields.Fields.Length;
             var stations = new List<Station>();
@@ -31,7 +28,7 @@ namespace DotLToExcel.Mapping
                         City = data[i + 7],
                         DownStreamStation = data[i + 8],
                         Fax = data[i + 9],
-					    MilePost = data[i + 10],
+                        MilePost = data[i + 10],
                         MeterName = data[i + 11],
                         MeterNumber = data[i + 12],
                         StationNumber = Convert.ToInt32(data[i + 13]),
@@ -41,7 +38,7 @@ namespace DotLToExcel.Mapping
                         State = data[i + 17],
                         StationType = data[i + 18],
                         Templatename = data[i + 19],
-					    UpstreamStation = data[i + 20],
+                        UpstreamStation = data[i + 20],
                         Zip = data[i + 21]
                     };
                     stations.Add(station);

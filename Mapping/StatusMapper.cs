@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DotLToExcel.DotL;
 using DotLToExcel.POCOS;
-using DotLToExcel.DotL;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Animation;
+using System;
+using System.Collections.Generic;
 
 namespace DotLToExcel.Mapping
 {
     public class StatusMapper
     {
-        public IEnumerable<Digital> MapStatus(IList<string> data, Dictionary<string, string> StatusNames, Dictionary<string, string> Messages)
+        public List<Digital> MapStatus(IList<string> data, Dictionary<string, string> StatusNames, Dictionary<string, string> Messages)
         {
             int FieldLength = StatusFields.Fields.Length;
             List<Digital> digital = new List<Digital>();
 
             try
             {
-                for(int i = 0; i < data.Count; i += FieldLength)
+                for (int i = 0; i < data.Count; i += FieldLength)
                 {
                     Digital status = new Digital();
-                    status.LegacyName = Helper.returnValFromDictionary(data[i], StatusNames);
+                    status.LegacyName = Helper.ReturnValFromDictionary(data[i], StatusNames);
                     status.NewName = data[i];
                     status.Remote = data[i + 1];
                     status.dataset = data[i + 2];
@@ -39,17 +36,17 @@ namespace DotLToExcel.Mapping
                     status.HasOutput = data[i + 15];
                     status.HasInput = data[i + 16];
                     status.OutputCoordinates1 = data[i + 17];
-                    if(data[i + 15].Equals("yes"))
+                    if (data[i + 15].Equals("yes"))
                     {
-                        if(data[i + 29].Equals(""))
+                        if (data[i + 29].Equals(""))
                         {
-                            status.CommandType1 = Helper.returnValFromDictionary(data[i + 5] + "1", Messages);
-                            status.CommandType2 = Helper.returnValFromDictionary(data[i + 5] + "2", Messages);
+                            status.CommandType1 = Helper.ReturnValFromDictionary(data[i + 5] + "1", Messages);
+                            status.CommandType2 = Helper.ReturnValFromDictionary(data[i + 5] + "2", Messages);
                         }
                         else
                         {
-                            status.CommandType1 = Helper.returnValFromDictionary(data[i + 29] + "1", Messages);
-                            status.CommandType2 = Helper.returnValFromDictionary(data[i + 29] + "2", Messages);
+                            status.CommandType1 = Helper.ReturnValFromDictionary(data[i + 29] + "1", Messages);
+                            status.CommandType2 = Helper.ReturnValFromDictionary(data[i + 29] + "2", Messages);
                         }
                     }
                     status.OutputType1 = data[i + 18];
@@ -70,7 +67,7 @@ namespace DotLToExcel.Mapping
                     digital.Add(status);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }

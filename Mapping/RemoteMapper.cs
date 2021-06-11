@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DotLToExcel.DotL;
 using DotLToExcel.POCOS;
-using DotLToExcel.DotL;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Animation;
+using System;
+using System.Collections.Generic;
 
 namespace DotLToExcel.Mapping
 {
     public class RemoteMapper
     {
-        public IEnumerable<Remote> MapRemote(IList<string> data, Dictionary<string, string> ConnectionRemote)
+        public List<Remote> MapRemote(IList<string> data, Dictionary<string, string> ConnectionRemote)
         {
             int FieldLength = RemoteFields.Fields.Length;
             var remotes = new List<Remote>();
 
             try
             {
-                for(int i = 0; i < data.Count; i += FieldLength)
+                for (int i = 0; i < data.Count; i += FieldLength)
                 {
                     var remote = new Remote
                     {
@@ -36,12 +33,12 @@ namespace DotLToExcel.Mapping
                         OverheadProcessing = Convert.ToInt32(data[i + 12]),
                         RTUTurnaround = Convert.ToInt32(data[i + 13]),
                         TimeoutLineFailure = Convert.ToInt32(data[i + 14]),
-                        PrimaryConnection = Helper.returnValFromDictionary(data[i], ConnectionRemote)
+                        PrimaryConnection = Helper.ReturnValFromDictionary(data[i], ConnectionRemote)
                     };
                     remotes.Add(remote);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }

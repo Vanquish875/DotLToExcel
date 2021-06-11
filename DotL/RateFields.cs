@@ -2,7 +2,7 @@
 {
     public static class RateFields
     {
-        public static string[] Fields = 
+        public static string[] Fields =
         {
             "name ",
             "rtu ",

@@ -2,7 +2,7 @@
 {
     public static class ConnectionFields
     {
-        public static string[] Fields = 
+        public static string[] Fields =
         {
             "name",
             "commproc",

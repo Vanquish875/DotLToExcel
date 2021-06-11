@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using DotLToExcel.DotL;
+﻿using DotLToExcel.DotL;
 using DotLToExcel.Excel;
-using DotLToExcel.POCOS;
 using DotLToExcel.Mapping;
+using DotLToExcel.POCOS;
+using System.Collections.Generic;
 
 namespace DotLToExcel.Classes
 {
@@ -42,7 +42,7 @@ namespace DotLToExcel.Classes
             _analogMapper = new AnalogMapper();
             _connectionMapper = new ConnectionMapper();
             _legacyNameMapper = new LegacyNameMapper();
-            _messageMapper = new LegacyNameMapper();
+            _messageMapper = new MessageMapper();
             _multistateMapper = new MultistateMapper();
             _rateMapper = new RateMapper();
             _remConnJoinMapper = new RemConnJoinMapper();
@@ -54,9 +54,9 @@ namespace DotLToExcel.Classes
         public void ParseRemConnJoin()
         {
             var remConnJoinList = new List<string>();
-            remConnJoins = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
+            remConnJoinList = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
 
-            ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoins);
+            ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
         }
 
         public void ParseMessages()
@@ -77,47 +77,47 @@ namespace DotLToExcel.Classes
         public void MapStations()
         {
             var stationList = new List<string>();
-            stationList = _parser.processFile(filePath + @"\station.l", StationFields.Fields);
+            stationList = _parser.ProcessFile(filePath + @"\station.l", StationFields.Fields);
             stations = _stationMapper.MapStation(stationList);
         }
 
         public void MapConnections()
         {
             var connectionList = new List<string>();
-            connectionList = _parser.processFile(filePath + @"\connection.l", ConnectionFields.Fields);
+            connectionList = _parser.ProcessFile(filePath + @"\connection.l", ConnectionFields.Fields);
             connections = _connectionMapper.MapConnection(connectionList);
         }
 
         public void MapRemotes()
         {
             var remoteList = new List<string>();
-            remoteList = _parser.processFile(filePath + @"\remote.l", RemoteFields.Fields);
+            remoteList = _parser.ProcessFile(filePath + @"\remote.l", RemoteFields.Fields);
             remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote);
         }
 
         public void MapAnalogs()
         {
             var analogList = new List<string>();
-            analogList = parser.processFile(filePath + @"\analog.l", AnalogFields.Fields);
+            analogList = _parser.ProcessFile(filePath + @"\analog.l", AnalogFields.Fields);
             analogs = _analogMapper.MapAnalog(analogList, AnalogNames);
         }
 
         public void MapRates()
         {
             var rateList = new List<string>();
-            rateList = _parser.processFile(filePath + @"\rate.l", RateFields.Fields)
+            rateList = _parser.ProcessFile(filePath + @"\rate.l", RateFields.Fields);
             rates = _rateMapper.MapRate(rateList, AnalogNames);
         }
         public void MapStatus()
         {
             var statusList = new List<string>();
-            statusList = _parser.processFile(filePath + @"\status.l", StatusFields.Fields);
-            status = _stationMapper.MapStatus(statusList, StatusNames, OutputMessages);
+            statusList = _parser.ProcessFile(filePath + @"\status.l", StatusFields.Fields);
+            status = _statusMapper.MapStatus(statusList, StatusNames, OutputMessages);
         }
         public void MapMultistate()
         {
             var multistateList = new List<string>();
-            multistateList = parser.processFile(filePath + @"\multistate.l", MultistateFields.Fields);
+            multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
             multistates = _multistateMapper.MapMultistate(multistateList);
         }
 

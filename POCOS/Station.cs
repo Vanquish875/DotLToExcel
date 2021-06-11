@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DotLToExcel.POCOS
+﻿namespace DotLToExcel.POCOS
 {
     public class Station
     {
@@ -25,7 +23,7 @@ namespace DotLToExcel.POCOS
         public string Phone1 { get; set; }
         public string Phone2 { get; set; }
         public string Fax { get; set; }
-		public string MilePost { get; set; }
+        public string MilePost { get; set; }
         public string Location { get; set; }
         public string Description2 { get; set; }
         public string Comment { get; set; }

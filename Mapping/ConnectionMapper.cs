@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DotLToExcel.DotL;
 using DotLToExcel.POCOS;
-using DotLToExcel.DotL;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Animation;
+using System;
+using System.Collections.Generic;
 
 namespace DotLToExcel.Mapping
 {
     public class ConnectionMapper
     {
-        public IEnumerable<Connection> MapConnection(IList<string> data)
+        public List<Connection> MapConnection(IList<string> data)
         {
             int FieldLength = ConnectionFields.Fields.Length;
             var connections = new List<Connection>();
 
             try
             {
-                for(int i = 0; i < data.Count; i += FieldLength)
+                for (int i = 0; i < data.Count; i += FieldLength)
                 {
                     var connection = new Connection
                     {
@@ -32,7 +29,7 @@ namespace DotLToExcel.Mapping
                     connections.Add(connection);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }

@@ -1,5 +1,5 @@
-﻿using System;
-using DotLToExcel.Classes;
+﻿using DotLToExcel.Classes;
+using System;
 
 namespace DotLToExcel
 {
@@ -13,7 +13,7 @@ namespace DotLToExcel
                 if (Helper.CheckForDotLFiles(filePath))
                 {
                     var parseFiles = new Worker(filePath);
-                    
+
                     Console.WriteLine("Parsing Remote Connection table.");
                     parseFiles.ParseRemConnJoin();
 
