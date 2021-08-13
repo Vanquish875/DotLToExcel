@@ -3,6 +3,7 @@
     public class Remote
     {
         public string Group { get; set; }
+        public string LegacyName { get; set; } = "";
         public string Name { get; set; }
         public string Description { get; set; }
         public string Station { get; set; }
@@ -31,5 +32,6 @@
         public string RTUAppliesDSTAuto { get; set; }
         public string PrimaryConnection { get; set; }
         public string InhibitAutoPoll { get; set; }
+        public string DeviceType { get; set; } = "";
     }
 }

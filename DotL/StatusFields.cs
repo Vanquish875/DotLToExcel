@@ -34,6 +34,7 @@
             "ab_cip_scan_proto.scan_enabled ",
             "ab_cip_scan_proto.cip_dtype ",
             "outputMsg ",
+            "assetId.assetIdLoc ",
             "displayOrder",
             "shortDesc"
         };

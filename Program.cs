@@ -9,42 +9,22 @@ namespace DotLToExcel
         {
             try
             {
-                var filePath = Helper.VerifyArgumentsProvided(args);
+                var filePath = Helper.ReturnFilePath(args[0]);
+                var IANR = Helper.CheckIfANROption(args[1]);
+
                 if (Helper.CheckForDotLFiles(filePath))
                 {
                     var parseFiles = new Worker(filePath);
 
-                    Console.WriteLine("Parsing Remote Connection table.");
-                    parseFiles.ParseRemConnJoin();
-
-                    Console.WriteLine("Parsing Message table.");
-                    parseFiles.ParseMessages();
-
-                    Console.WriteLine("Mapping legacy names.");
-                    parseFiles.MapLegacyNames();
-
-                    Console.WriteLine("Mapping Stations.");
-                    parseFiles.MapStations();
-
-                    Console.WriteLine("Mapping Connections.");
-                    parseFiles.MapConnections();
-
-                    Console.WriteLine("Mapping Remotes.");
-                    parseFiles.MapRemotes();
-
-                    Console.WriteLine("Mapping Analogs.");
-                    parseFiles.MapAnalogs();
-
-                    Console.WriteLine("Mapping Rates.");
-                    parseFiles.MapRates();
-
-                    Console.WriteLine("Mapping Status.");
-                    parseFiles.MapStatus();
-
-                    Console.WriteLine("Mapping Multistate.");
-                    parseFiles.MapMultistate();
-
-
+                    if(IANR)
+                    {
+                        parseFiles.ParseANRTables();
+                    }
+                    else
+                    {
+                        parseFiles.ParseAllTables();
+                    }
+                    
                     Console.WriteLine("Creating Excel file.");
                     parseFiles.CallExcel();
                     Console.WriteLine("Finished!");

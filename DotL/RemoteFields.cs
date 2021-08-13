@@ -18,7 +18,9 @@
             "rtu_poll_delay.high ",     //<--Poll Delay
             "cmd_xtime",                //<--Overhead Processing Time
             "delay",                    //<--RTU Turnaround Time
-            "lf_timeout"                //<--Timeout(Line Failure)
+            "lf_timeout",                //<--Timeout(Line Failure)
+            "assetId.assetIdLoc ",
+            "assetId.assetIdComment "
         };
     }
 }

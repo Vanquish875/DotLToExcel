@@ -34,6 +34,7 @@ namespace DotLToExcel.Classes
         Dictionary<string, string> AnalogNames = new Dictionary<string, string>();
         Dictionary<string, string> StatusNames = new Dictionary<string, string>();
         Dictionary<string, string> OutputMessages = new Dictionary<string, string>();
+        HashSet<string> ANRGroups = new HashSet<string>();
 
         public Worker(string filePath)
         {
@@ -51,80 +52,91 @@ namespace DotLToExcel.Classes
             _statusMapper = new StatusMapper();
         }
 
-        public void ParseRemConnJoin()
+        public void ParseAllTables()
         {
-            var remConnJoinList = new List<string>();
-            remConnJoinList = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
+            var remConnJoinList = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
+            var messageList = _parser.ProcessFile(filePath + @"\message.l", MessageFields.Fields);
+            var stationList = _parser.ProcessFile(filePath + @"\station.l", StationFields.Fields);
+            var connectionList = _parser.ProcessFile(filePath + @"\connection.l", ConnectionFields.Fields);
+            var remoteList = _parser.ProcessFile(filePath + @"\remote.l", RemoteFields.Fields);
+            var analogList = _parser.ProcessFile(filePath + @"\analog.l", AnalogFields.Fields);
+            var rateList = _parser.ProcessFile(filePath + @"\rate.l", RateFields.Fields);
+            var statusList = _parser.ProcessFile(filePath + @"\status.l", StatusFields.Fields);
+            var multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
 
             ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
-        }
-
-        public void ParseMessages()
-        {
-            var messageList = new List<string>();
-            messageList = _parser.ProcessFile(filePath + @"\message.l", MessageFields.Fields);
-
             messages = _messageMapper.MapMessages(messageList);
             OutputMessages = _messageMapper.OutputMessages;
-        }
-
-        public void MapLegacyNames()
-        {
             AnalogNames = _legacyNameMapper.MapLegacyNames(filePath, "AnalogNames.csv");
             StatusNames = _legacyNameMapper.MapLegacyNames(filePath, "StatusNames.csv");
-        }
-
-        public void MapStations()
-        {
-            var stationList = new List<string>();
-            stationList = _parser.ProcessFile(filePath + @"\station.l", StationFields.Fields);
             stations = _stationMapper.MapStation(stationList);
-        }
-
-        public void MapConnections()
-        {
-            var connectionList = new List<string>();
-            connectionList = _parser.ProcessFile(filePath + @"\connection.l", ConnectionFields.Fields);
             connections = _connectionMapper.MapConnection(connectionList);
-        }
-
-        public void MapRemotes()
-        {
-            var remoteList = new List<string>();
-            remoteList = _parser.ProcessFile(filePath + @"\remote.l", RemoteFields.Fields);
             remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote);
-        }
-
-        public void MapAnalogs()
-        {
-            var analogList = new List<string>();
-            analogList = _parser.ProcessFile(filePath + @"\analog.l", AnalogFields.Fields);
             analogs = _analogMapper.MapAnalog(analogList, AnalogNames);
+            rates = _rateMapper.MapRate(rateList, AnalogNames);
+            status = _statusMapper.MapStatus(statusList, StatusNames, OutputMessages);
+            multistates = _multistateMapper.MapMultistate(multistateList);
         }
 
-        public void MapRates()
+        public void ParseANRTables()
         {
-            var rateList = new List<string>();
-            rateList = _parser.ProcessFile(filePath + @"\rate.l", RateFields.Fields);
-            rates = _rateMapper.MapRate(rateList, AnalogNames);
-        }
-        public void MapStatus()
-        {
-            var statusList = new List<string>();
-            statusList = _parser.ProcessFile(filePath + @"\status.l", StatusFields.Fields);
-            status = _statusMapper.MapStatus(statusList, StatusNames, OutputMessages);
-        }
-        public void MapMultistate()
-        {
-            var multistateList = new List<string>();
-            multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
-            multistates = _multistateMapper.MapMultistate(multistateList);
+            var remConnJoinList = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
+            var messageList = _parser.ProcessFile(filePath + @"\message.l", MessageFields.Fields);
+            var stationList = _parser.ProcessFile(filePath + @"\station.l", StationFields.Fields);
+            var connectionList = _parser.ProcessFile(filePath + @"\connection.l", ConnectionFields.Fields);
+            var remoteList = _parser.ProcessFile(filePath + @"\remote.l", RemoteFields.Fields);
+            var analogList = _parser.ProcessFile(filePath + @"\analog.l", AnalogFields.Fields);
+            var rateList = _parser.ProcessFile(filePath + @"\rate.l", RateFields.Fields);
+            var statusList = _parser.ProcessFile(filePath + @"\status.l", StatusFields.Fields);
+            var multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
+
+            LoadANRGroups();
+
+            ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
+            messages = _messageMapper.MapMessages(messageList);
+            OutputMessages = _messageMapper.OutputMessages;
+            stations = _stationMapper.MapStation(stationList, ANRGroups);
+            connections = _connectionMapper.MapConnection(connectionList, ANRGroups);
+            remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote, ANRGroups);
+            analogs = _analogMapper.MapAnalog(analogList, ANRGroups);
+            rates = _rateMapper.MapRate(rateList, ANRGroups);
+            status = _statusMapper.MapStatus(statusList, OutputMessages, ANRGroups);
+            multistates = _multistateMapper.MapMultistate(multistateList, ANRGroups);
         }
 
         public void CallExcel()
         {
             ExcelManager excel = new ExcelManager();
             excel.WriteToExcel(stations, remotes, connections, analogs, rates, status, multistates, messages);
+        }
+
+        public void LoadANRGroups()
+        {
+            ANRGroups.Add("EACAD");
+            ANRGroups.Add("EALEX");
+            ANRGroups.Add("ECELE");
+            ANRGroups.Add("EDEFN");
+            ANRGroups.Add("EDEFS");
+            ANRGroups.Add("EDELH");
+            ANRGroups.Add("EDELT");
+            ANRGroups.Add("ESARD");
+            ANRGroups.Add("EWETL");
+            ANRGroups.Add("NBADN");
+            ANRGroups.Add("NBADS");
+            ANRGroups.Add("NBLUE");
+            ANRGroups.Add("NCALW");
+            ANRGroups.Add("NGAYL");
+            ANRGroups.Add("NMACK");
+            ANRGroups.Add("NPINE");
+            ANRGroups.Add("NREED");
+            ANRGroups.Add("NSTCL");
+            ANRGroups.Add("NWOOL");
+            ANRGroups.Add("WBIRM");
+            ANRGroups.Add("WCALC");
+            ANRGroups.Add("WCALW");
+            ANRGroups.Add("WFLNT");
+            ANRGroups.Add("WMICH");
+            ANRGroups.Add("WMOOR");
         }
     }
 }
