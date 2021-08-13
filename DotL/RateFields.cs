@@ -32,6 +32,7 @@
             "ab_cip_scan_proto.scan_block ",
             "ab_cip_scan_proto.scan_enabled ",
             "ab_cip_scan_proto.cip_dtype ",
+            "assetId.assetIdLoc ",
             "shortDesc ",
             "displayOrder "
         };

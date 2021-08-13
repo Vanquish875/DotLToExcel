@@ -3,7 +3,7 @@
     public class Multistate
     {
         public string Group { get; set; }
-        //public string LegacyName { get; set; }
+        public string LegacyName { get; set; }
         public string NewName { get; set; }
         public string Description { get; set; }
         public string ShortDescription { get; set; }

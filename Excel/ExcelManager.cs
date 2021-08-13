@@ -1,6 +1,7 @@
 ﻿using DotLToExcel.POCOS;
 using System.Collections.Generic;
 using System.IO;
+using OfficeOpenXml;
 
 namespace DotLToExcel.Excel
 {
@@ -9,6 +10,8 @@ namespace DotLToExcel.Excel
         public void WriteToExcel(IList<Station> stations, IList<Remote> remotes, IList<Connection> connections, IList<Analog> analogs,
             IList<Rate> rates, IList<Digital> status, IList<Multistate> multistates, IList<Message> messages)
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             using (ExcelPackage excel = new ExcelPackage())
             {
                 excel.Workbook.Worksheets.Add("Station");

@@ -5,14 +5,24 @@ namespace DotLToExcel
 {
     public static class Helper
     {
-        public static string VerifyArgumentsProvided(string[] arguments)
+        public static string ReturnFilePath(string argument1)
         {
-            if (arguments != null)
+            if (argument1 != null)
             {
-                return arguments[0];
+                return argument1;
             }
 
             return Directory.GetCurrentDirectory();
+        }
+
+        public static bool CheckIfANROption(string argument2)
+        {
+            if(argument2.ToLower().Equals("-a"))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public static bool CheckForDotLFiles(string path)
@@ -25,9 +35,9 @@ namespace DotLToExcel
             bool statusDotLExists = File.Exists(path + @"\status.l");
             bool stationDotLExists = File.Exists(path + @"\station.l");
             bool multistateDotLExists = File.Exists(path + @"\multistate.l");
-            bool AnalogNames = File.Exists(path + @"\AnalogNames.csv");
-            bool RateNames = File.Exists(path + @"\RateNames.csv");
-            bool StatusNames = File.Exists(path + @"\StatusNames.csv");
+            bool AnalogNames = true;//File.Exists(path + @"\AnalogNames.csv");
+            bool RateNames = true;//File.Exists(path + @"\RateNames.csv");
+            bool StatusNames = true;//File.Exists(path + @"\StatusNames.csv");
             bool messageDotLExists = File.Exists(path + @"\message.l");
 
             if (connectionDotLExists && remoteDotLExists && remConnJoinDotLExists && analogDotLExists && rateDotLExists && statusDotLExists && stationDotLExists
