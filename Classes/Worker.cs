@@ -9,7 +9,6 @@ namespace DotLToExcel.Classes
     public class Worker
     {
         private readonly string filePath;
-        private readonly string group;
         private readonly Parser _parser;
         private readonly AnalogMapper _analogMapper;
         private readonly ConnectionMapper _connectionMapper;
@@ -21,6 +20,8 @@ namespace DotLToExcel.Classes
         private readonly RemoteMapper _remoteMapper;
         private readonly StationMapper _stationMapper;
         private readonly StatusMapper _statusMapper;
+        private readonly CGLTemplateMapper _templateMapper;
+        private readonly CGLMapper _CGLMapper;
 
         List<Analog> analogs = new List<Analog>();
         List<Connection> connections = new List<Connection>();
@@ -30,6 +31,7 @@ namespace DotLToExcel.Classes
         List<Multistate> multistates = new List<Multistate>();
         List<Station> stations = new List<Station>();
         List<Message> messages = new List<Message>();
+        List<CGLTemplateDef> cgls = new List<CGLTemplateDef>();
         Dictionary<string, string> ConnectionRemote = new Dictionary<string, string>();
         Dictionary<string, string> AnalogNames = new Dictionary<string, string>();
         Dictionary<string, string> StatusNames = new Dictionary<string, string>();
@@ -50,6 +52,8 @@ namespace DotLToExcel.Classes
             _remoteMapper = new RemoteMapper();
             _stationMapper = new StationMapper();
             _statusMapper = new StatusMapper();
+            _templateMapper = new CGLTemplateMapper();
+            _CGLMapper = new CGLMapper();
         }
 
         public void ParseAllTables()
@@ -63,6 +67,7 @@ namespace DotLToExcel.Classes
             var rateList = _parser.ProcessFile(filePath + @"\rate.l", RateFields.Fields);
             var statusList = _parser.ProcessFile(filePath + @"\status.l", StatusFields.Fields);
             var multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
+            var cglTemplatesList = _parser.ProcessFile(filePath + @"\cgltemplatedef.l", CGLTemplateFields.Fields);
 
             ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
             messages = _messageMapper.MapMessages(messageList);
@@ -76,6 +81,8 @@ namespace DotLToExcel.Classes
             rates = _rateMapper.MapRate(rateList, AnalogNames);
             status = _statusMapper.MapStatus(statusList, StatusNames, OutputMessages);
             multistates = _multistateMapper.MapMultistate(multistateList);
+            var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
+            cgls = _CGLMapper.MapCGLTemplate(templates);
         }
 
         public void ParseANRTables()
@@ -89,6 +96,7 @@ namespace DotLToExcel.Classes
             var rateList = _parser.ProcessFile(filePath + @"\rate.l", RateFields.Fields);
             var statusList = _parser.ProcessFile(filePath + @"\status.l", StatusFields.Fields);
             var multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
+            var cglTemplatesList = _parser.ProcessFile(filePath + @"\cgltemplatedef.l", CGLTemplateFields.Fields);
 
             LoadANRGroups();
 
@@ -102,12 +110,14 @@ namespace DotLToExcel.Classes
             rates = _rateMapper.MapRate(rateList, ANRGroups);
             status = _statusMapper.MapStatus(statusList, OutputMessages, ANRGroups);
             multistates = _multistateMapper.MapMultistate(multistateList, ANRGroups);
+            var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
+            cgls = _CGLMapper.MapCGLTemplate(templates);
         }
 
         public void CallExcel()
         {
             ExcelManager excel = new ExcelManager();
-            excel.WriteToExcel(stations, remotes, connections, analogs, rates, status, multistates, messages);
+            excel.WriteToExcel(stations, remotes, connections, analogs, rates, status, multistates, messages, cgls);
         }
 
         public void LoadANRGroups()

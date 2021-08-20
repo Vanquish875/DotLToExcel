@@ -38,6 +38,7 @@ namespace DotLToExcel
             bool AnalogNames = true;//File.Exists(path + @"\AnalogNames.csv");
             bool RateNames = true;//File.Exists(path + @"\RateNames.csv");
             bool StatusNames = true;//File.Exists(path + @"\StatusNames.csv");
+            bool CGLTemplateDef = File.Exists(path + @"\cgltemplatedef.l");
             bool messageDotLExists = File.Exists(path + @"\message.l");
 
             if (connectionDotLExists && remoteDotLExists && remConnJoinDotLExists && analogDotLExists && rateDotLExists && statusDotLExists && stationDotLExists
@@ -78,6 +79,47 @@ namespace DotLToExcel
         public static bool ReturnBoolKeyExistsDictionary(string remote, Dictionary<string, string> remoConJoin)
         {
             if (remoConJoin.ContainsKey(remote))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool CheckIfCorrectTemplateName(string name)
+        {
+            if (name.Equals("Upload.METER.Periodic.HOURLY.Run[01].DPPLoadType") || name.Equals("Upload.METER.Periodic.HOURLY.Run[01].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[01].Data.RegRW") || name.Equals("Upload.METER.Periodic.HOURLY.Run[01].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[01].DPPLoadType") || name.Equals("Upload.METER.Periodic.DAILY.Run[01].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[01].Data.RegRW") || name.Equals("Upload.METER.Periodic.DAILY.Run[01].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[02].DPPLoadType") || name.Equals("Upload.METER.Periodic.HOURLY.Run[02].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[02].Data.RegRW") || name.Equals("Upload.METER.Periodic.HOURLY.Run[02].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[02].DPPLoadType") || name.Equals("Upload.METER.Periodic.DAILY.Run[02].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[02].Data.RegRW") || name.Equals("Upload.METER.Periodic.DAILY.Run[02].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[03].DPPLoadType") || name.Equals("Upload.METER.Periodic.HOURLY.Run[03].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[03].Data.RegRW") || name.Equals("Upload.METER.Periodic.HOURLY.Run[03].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[03].DPPLoadType") || name.Equals("Upload.METER.Periodic.DAILY.Run[03].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[03].Data.RegRW") || name.Equals("Upload.METER.Periodic.DAILY.Run[03].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[04].DPPLoadType") || name.Equals("Upload.METER.Periodic.HOURLY.Run[04].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[04].Data.RegRW") || name.Equals("Upload.METER.Periodic.HOURLY.Run[04].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[04].DPPLoadType") || name.Equals("Upload.METER.Periodic.DAILY.Run[04].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[04].Data.RegRW") || name.Equals("Upload.METER.Periodic.DAILY.Run[04].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[05].DPPLoadType") || name.Equals("Upload.METER.Periodic.HOURLY.Run[05].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[05].Data.RegRW") || name.Equals("Upload.METER.Periodic.HOURLY.Run[05].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[05].DPPLoadType") || name.Equals("Upload.METER.Periodic.DAILY.Run[05].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[05].Data.RegRW") || name.Equals("Upload.METER.Periodic.DAILY.Run[05].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[06].DPPLoadType") || name.Equals("Upload.METER.Periodic.HOURLY.Run[06].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[06].Data.RegRW") || name.Equals("Upload.METER.Periodic.HOURLY.Run[06].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[06].DPPLoadType") || name.Equals("Upload.METER.Periodic.DAILY.Run[06].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[06].Data.RegRW") || name.Equals("Upload.METER.Periodic.DAILY.Run[06].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[07].DPPLoadType") || name.Equals("Upload.METER.Periodic.HOURLY.Run[07].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[07].Data.RegRW") || name.Equals("Upload.METER.Periodic.HOURLY.Run[07].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[07].DPPLoadType") || name.Equals("Upload.METER.Periodic.DAILY.Run[07].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[07].Data.RegRW") || name.Equals("Upload.METER.Periodic.DAILY.Run[07].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[08].DPPLoadType") || name.Equals("Upload.METER.Periodic.HOURLY.Run[08].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.HOURLY.Run[08].Data.RegRW") || name.Equals("Upload.METER.Periodic.HOURLY.Run[08].Index.RegRW") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[08].DPPLoadType") || name.Equals("Upload.METER.Periodic.DAILY.Run[08].Data.RecordLast") ||
+                name.Equals("Upload.METER.Periodic.DAILY.Run[08].Data.RegRW") || name.Equals("Upload.METER.Periodic.DAILY.Run[08].Index.RegRW"))
             {
                 return true;
             }

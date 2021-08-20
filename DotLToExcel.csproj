@@ -56,14 +56,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Worker.cs" />
+    <Compile Include="DotL\CGLTemplateFields.cs" />
     <Compile Include="DotL\MessageFields.cs" />
     <Compile Include="DotL\MultistateFields.cs" />
     <Compile Include="DotL\RemConnFields.cs" />
     <Compile Include="DotL\StationFields.cs" />
     <Compile Include="Excel\ExcelManager.cs" />
     <Compile Include="Mapping\AnalogMapper.cs" />
+    <Compile Include="Mapping\CGLTemplateMapper.cs" />
     <Compile Include="Mapping\ConnectionMapper.cs" />
     <Compile Include="Mapping\LegacyNameMapper.cs" />
+    <Compile Include="Mapping\CGLMapper.cs" />
     <Compile Include="Mapping\MessageMapper.cs" />
     <Compile Include="Mapping\MultistateMapper.cs" />
     <Compile Include="Mapping\RateMapper.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="DotL\RemoteFields.cs" />
     <Compile Include="DotL\StatusFields.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="POCOS\CGLTemplateDef.cs" />
     <Compile Include="POCOS\Connection.cs" />
     <Compile Include="POCOS\Digital.cs" />
     <Compile Include="POCOS\Message.cs" />
@@ -86,6 +90,7 @@
     <Compile Include="POCOS\Rate.cs" />
     <Compile Include="POCOS\Remote.cs" />
     <Compile Include="POCOS\Station.cs" />
+    <Compile Include="POCOS\TemplateDef.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

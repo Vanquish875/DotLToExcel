@@ -8,7 +8,7 @@ namespace DotLToExcel.Excel
     public class ExcelManager
     {
         public void WriteToExcel(IList<Station> stations, IList<Remote> remotes, IList<Connection> connections, IList<Analog> analogs,
-            IList<Rate> rates, IList<Digital> status, IList<Multistate> multistates, IList<Message> messages)
+            IList<Rate> rates, IList<Digital> status, IList<Multistate> multistates, IList<Message> messages, IList<CGLTemplateDef> cgls)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -22,6 +22,7 @@ namespace DotLToExcel.Excel
                 excel.Workbook.Worksheets.Add("Digital");
                 excel.Workbook.Worksheets.Add("Multistate");
                 excel.Workbook.Worksheets.Add("Message");
+                excel.Workbook.Worksheets.Add("CGLTemplates");
 
                 // Target a worksheet
                 var StationWorksheet = excel.Workbook.Worksheets["Station"];
@@ -32,6 +33,7 @@ namespace DotLToExcel.Excel
                 var DigitalWorksheet = excel.Workbook.Worksheets["Digital"];
                 var MultistateWorksheet = excel.Workbook.Worksheets["Multistate"];
                 var MessageWorksheet = excel.Workbook.Worksheets["Message"];
+                var CGLWorksheet = excel.Workbook.Worksheets["CGLTemplates"];
 
                 // Popular header row data
                 StationWorksheet.Cells.LoadFromCollection(stations, true);
@@ -42,6 +44,7 @@ namespace DotLToExcel.Excel
                 DigitalWorksheet.Cells.LoadFromCollection(status, true);
                 MultistateWorksheet.Cells.LoadFromCollection(multistates, true);
                 MessageWorksheet.Cells.LoadFromCollection(messages, true);
+                CGLWorksheet.Cells.LoadFromCollection(cgls, true);
 
                 FileInfo excelFile = new FileInfo(@"E:\TCEnergy\DBMigration.xlsx");
                 excel.SaveAs(excelFile);
