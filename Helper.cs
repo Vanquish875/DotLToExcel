@@ -42,8 +42,10 @@ namespace DotLToExcel
             bool messageDotLExists = File.Exists(path + @"\message.l");
 
             if (connectionDotLExists && remoteDotLExists && remConnJoinDotLExists && analogDotLExists && rateDotLExists && statusDotLExists && stationDotLExists
-                && multistateDotLExists && AnalogNames && RateNames && StatusNames && messageDotLExists)
+                && multistateDotLExists && AnalogNames && RateNames && StatusNames && messageDotLExists && CGLTemplateDef)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -56,8 +58,10 @@ namespace DotLToExcel
         public static bool CheckFields(string line, string field)
         {
             if (line.StartsWith(field))
+            {
                 return true;
-
+            }
+                
             return false;
         }
 
