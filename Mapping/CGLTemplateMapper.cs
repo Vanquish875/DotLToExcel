@@ -14,10 +14,10 @@ namespace DotLToExcel.Mapping
 
             try
             {
-                for(int i = 0; i < data.Count; i += FieldLength)
+                for (int i = 0; i < data.Count; i += FieldLength)
                 {
                     var template = new TemplateDef();
-                    if(Helper.CheckIfCorrectTemplateName(data[i + 1]))
+                    if (Helper.CheckIfCorrectTemplateName(data[i + 1]))
                     {
                         template.TemplateName = data[i];
                         template.FieldName = data[i + 1];
@@ -27,7 +27,7 @@ namespace DotLToExcel.Mapping
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }

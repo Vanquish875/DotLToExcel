@@ -78,7 +78,7 @@ namespace DotLToExcel.Mapping
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    if(anrData.Contains(data[i + 2]))
+                    if (anrData.Contains(data[i + 2]))
                     {
                         var analog = new Analog
                         {
@@ -124,7 +124,7 @@ namespace DotLToExcel.Mapping
                             DisplayOrder = Convert.ToInt32(data[i + 39])
                         };
                         analogs.Add(analog);
-                    } 
+                    }
                 }
             }
             catch (Exception ex)

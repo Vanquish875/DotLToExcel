@@ -76,7 +76,7 @@ namespace DotLToExcel.Mapping
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    if(anrData.Contains(data[i + 3]))
+                    if (anrData.Contains(data[i + 3]))
                     {
                         var multistate = new Multistate
                         {
@@ -120,7 +120,7 @@ namespace DotLToExcel.Mapping
                             ShortDescription = data[i + 37],
                         };
                         digital.Add(multistate);
-                    }  
+                    }
                 }
             }
             catch (Exception ex)

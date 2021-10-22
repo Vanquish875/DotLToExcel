@@ -83,7 +83,7 @@ namespace DotLToExcel.Mapping
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    if(anrData.Contains(data[i + 3]))
+                    if (anrData.Contains(data[i + 3]))
                     {
                         Digital status = new Digital();
                         status.LegacyName = data[i + 30];

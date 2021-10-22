@@ -16,7 +16,7 @@ namespace DotLToExcel
                 {
                     var parseFiles = new Worker(filePath);
 
-                    if(IANR)
+                    if (IANR)
                     {
                         parseFiles.ParseANRTables();
                     }
@@ -24,7 +24,7 @@ namespace DotLToExcel
                     {
                         parseFiles.ParseAllTables();
                     }
-                    
+
                     Console.WriteLine("Creating Excel file.");
                     parseFiles.CallExcel();
                     Console.WriteLine("Finished!");

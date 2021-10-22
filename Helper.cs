@@ -17,7 +17,7 @@ namespace DotLToExcel
 
         public static bool CheckIfANROption(string argument2)
         {
-            if(argument2.ToLower().Equals("-a"))
+            if (argument2.ToLower().Equals("-a"))
             {
                 return true;
             }
@@ -61,7 +61,7 @@ namespace DotLToExcel
             {
                 return true;
             }
-                
+
             return false;
         }
 

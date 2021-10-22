@@ -45,7 +45,7 @@ namespace DotLToExcel.Mapping
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    if(anrData.Contains(data[i + 2]))
+                    if (anrData.Contains(data[i + 2]))
                     {
                         var connection = new Connection
                         {
@@ -58,7 +58,7 @@ namespace DotLToExcel.Mapping
                             Port = Convert.ToInt32(data[i + 6])
                         };
                         connections.Add(connection);
-                    }  
+                    }
                 }
             }
             catch (Exception ex)

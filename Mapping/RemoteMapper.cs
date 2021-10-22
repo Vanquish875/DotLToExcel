@@ -54,7 +54,7 @@ namespace DotLToExcel.Mapping
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    if(anrData.Contains(data[i + 1]))
+                    if (anrData.Contains(data[i + 1]))
                     {
                         var remote = new Remote
                         {

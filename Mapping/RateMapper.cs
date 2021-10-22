@@ -69,7 +69,7 @@ namespace DotLToExcel.Mapping
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    if(anrData.Contains(data[i + 2]))
+                    if (anrData.Contains(data[i + 2]))
                     {
                         var rate = new Rate
                         {

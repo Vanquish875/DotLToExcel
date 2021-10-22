@@ -60,7 +60,7 @@ namespace DotLToExcel.Mapping
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    if(anrData.Contains(data[i + 1]))
+                    if (anrData.Contains(data[i + 1]))
                     {
                         var station = new Station
                         {
@@ -88,7 +88,7 @@ namespace DotLToExcel.Mapping
                             Zip = data[i + 21]
                         };
                         stations.Add(station);
-                    } 
+                    }
                 }
             }
             catch (Exception ex)
