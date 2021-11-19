@@ -67,5 +67,13 @@
         public string Daily8Array { get; set; } = "";
         public string Daily8Register { get; set; } = "";
         public string Daily8Size { get; set; } = "";
+        public string Hourly9AGA { get; set; } = "";
+        public string Hourly9Array { get; set; } = "";
+        public string Hourly9Register { get; set; } = "";
+        public string Hourly9Size { get; set; } = "";
+        public string Daily9AGA { get; set; } = "";
+        public string Daily9Array { get; set; } = "";
+        public string Daily9Register { get; set; } = "";
+        public string Daily9Size { get; set; } = "";
     }
 }

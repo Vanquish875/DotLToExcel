@@ -7,7 +7,7 @@ namespace DotLToExcel.Mapping
 {
     public class CGLTemplateMapper
     {
-        public List<TemplateDef> MapTemplateDef(IList<string> data)
+        public List<TemplateDef> MapTemplateDef(List<string> data)
         {
             int FieldLength = CGLTemplateFields.Fields.Length;
             var templates = new List<TemplateDef>();

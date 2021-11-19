@@ -32,6 +32,7 @@
         public string RTUAppliesDSTAuto { get; set; }
         public string PrimaryConnection { get; set; }
         public string InhibitAutoPoll { get; set; }
+        public string CGLTemplate { get; set; } = "";
         public string DeviceType { get; set; } = "";
     }
 }

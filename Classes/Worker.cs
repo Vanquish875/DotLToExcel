@@ -23,21 +23,6 @@ namespace DotLToExcel.Classes
         private readonly CGLTemplateMapper _templateMapper;
         private readonly CGLMapper _CGLMapper;
 
-        List<Analog> analogs = new List<Analog>();
-        List<Connection> connections = new List<Connection>();
-        List<Remote> remotes = new List<Remote>();
-        List<Rate> rates = new List<Rate>();
-        List<Digital> status = new List<Digital>();
-        List<Multistate> multistates = new List<Multistate>();
-        List<Station> stations = new List<Station>();
-        List<Message> messages = new List<Message>();
-        List<CGLTemplateDef> cgls = new List<CGLTemplateDef>();
-        Dictionary<string, string> ConnectionRemote = new Dictionary<string, string>();
-        Dictionary<string, string> AnalogNames = new Dictionary<string, string>();
-        Dictionary<string, string> StatusNames = new Dictionary<string, string>();
-        Dictionary<string, string> OutputMessages = new Dictionary<string, string>();
-        HashSet<string> ANRGroups = new HashSet<string>();
-
         public Worker(string filePath)
         {
             this.filePath = filePath;
@@ -56,7 +41,7 @@ namespace DotLToExcel.Classes
             _CGLMapper = new CGLMapper();
         }
 
-        public void ParseAllTables()
+        public void ParseAllTables(bool parseANRTables)
         {
             var remConnJoinList = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
             var messageList = _parser.ProcessFile(filePath + @"\message.l", MessageFields.Fields);
@@ -69,84 +54,54 @@ namespace DotLToExcel.Classes
             var multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
             var cglTemplatesList = _parser.ProcessFile(filePath + @"\cgltemplatedef.l", CGLTemplateFields.Fields);
 
-            ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
-            messages = _messageMapper.MapMessages(messageList);
-            OutputMessages = _messageMapper.OutputMessages;
-            AnalogNames = _legacyNameMapper.MapLegacyNames(filePath, "AnalogNames.csv");
-            StatusNames = _legacyNameMapper.MapLegacyNames(filePath, "StatusNames.csv");
-            stations = _stationMapper.MapStation(stationList);
-            connections = _connectionMapper.MapConnection(connectionList);
-            remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote);
-            analogs = _analogMapper.MapAnalog(analogList, AnalogNames);
-            rates = _rateMapper.MapRate(rateList, AnalogNames);
-            status = _statusMapper.MapStatus(statusList, StatusNames, OutputMessages);
-            multistates = _multistateMapper.MapMultistate(multistateList);
-            var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
-            cgls = _CGLMapper.MapCGLTemplate(templates);
+            if(parseANRTables)
+            {
+                var ANRGroups = Helper.LoadANRGroups();
+
+                var ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
+                var (messages, outputMessages) = _messageMapper.MapMessages(messageList);
+                var stations = _stationMapper.MapStation(stationList, ANRGroups);
+                var connections = _connectionMapper.MapConnection(connectionList, ANRGroups);
+
+                var remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote, ANRGroups);
+                var analogs = _analogMapper.MapAnalog(analogList, ANRGroups);
+                var rates = _rateMapper.MapRate(rateList, ANRGroups);
+
+                var status = _statusMapper.MapStatus(statusList, outputMessages, ANRGroups);
+                var multistates = _multistateMapper.MapMultistate(multistateList, ANRGroups);
+                var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
+                var cgls = _CGLMapper.MapCGLTemplate(templates);
+
+                CallExcel(stations, remotes, connections, analogs, rates, status, multistates, messages, cgls);
+            }
+            else
+            {
+                var ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
+                var (messages, outputMessages) = _messageMapper.MapMessages(messageList);
+                var stations = _stationMapper.MapStation(stationList);
+
+                var connections = _connectionMapper.MapConnection(connectionList);
+                var remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote);
+
+                var analogs = _analogMapper.MapAnalog(analogList);
+                var rates = _rateMapper.MapRate(rateList);
+
+                var status = _statusMapper.MapStatus(statusList, outputMessages);
+                var multistates = _multistateMapper.MapMultistate(multistateList);
+                var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
+                var cgls = _CGLMapper.MapCGLTemplate(templates);
+
+                CallExcel(stations, remotes, connections, analogs, rates, status, multistates, messages, cgls);
+            }
         }
 
-        public void ParseANRTables()
-        {
-            var remConnJoinList = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
-            var messageList = _parser.ProcessFile(filePath + @"\message.l", MessageFields.Fields);
-            var stationList = _parser.ProcessFile(filePath + @"\station.l", StationFields.Fields);
-            var connectionList = _parser.ProcessFile(filePath + @"\connection.l", ConnectionFields.Fields);
-            var remoteList = _parser.ProcessFile(filePath + @"\remote.l", RemoteFields.Fields);
-            var analogList = _parser.ProcessFile(filePath + @"\analog.l", AnalogFields.Fields);
-            var rateList = _parser.ProcessFile(filePath + @"\rate.l", RateFields.Fields);
-            var statusList = _parser.ProcessFile(filePath + @"\status.l", StatusFields.Fields);
-            var multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
-            var cglTemplatesList = _parser.ProcessFile(filePath + @"\cgltemplatedef.l", CGLTemplateFields.Fields);
-
-            LoadANRGroups();
-
-            ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
-            messages = _messageMapper.MapMessages(messageList);
-            OutputMessages = _messageMapper.OutputMessages;
-            stations = _stationMapper.MapStation(stationList, ANRGroups);
-            connections = _connectionMapper.MapConnection(connectionList, ANRGroups);
-            remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote, ANRGroups);
-            analogs = _analogMapper.MapAnalog(analogList, ANRGroups);
-            rates = _rateMapper.MapRate(rateList, ANRGroups);
-            status = _statusMapper.MapStatus(statusList, OutputMessages, ANRGroups);
-            multistates = _multistateMapper.MapMultistate(multistateList, ANRGroups);
-            var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
-            cgls = _CGLMapper.MapCGLTemplate(templates);
-        }
-
-        public void CallExcel()
+        public void CallExcel(IEnumerable<Station> stations, IEnumerable<Remote> remotes, 
+            IEnumerable<Connection> connections, IEnumerable<Analog> analogs, 
+            IEnumerable<Rate> rates, IEnumerable<Digital> status, IEnumerable<Multistate> multistates,
+            IEnumerable<Message> messages, IEnumerable<CGLTemplateDef> cgls)
         {
             ExcelManager excel = new ExcelManager();
             excel.WriteToExcel(stations, remotes, connections, analogs, rates, status, multistates, messages, cgls);
-        }
-
-        public void LoadANRGroups()
-        {
-            ANRGroups.Add("EACAD");
-            ANRGroups.Add("EALEX");
-            ANRGroups.Add("ECELE");
-            ANRGroups.Add("EDEFN");
-            ANRGroups.Add("EDEFS");
-            ANRGroups.Add("EDELH");
-            ANRGroups.Add("EDELT");
-            ANRGroups.Add("ESARD");
-            ANRGroups.Add("EWETL");
-            ANRGroups.Add("NBADN");
-            ANRGroups.Add("NBADS");
-            ANRGroups.Add("NBLUE");
-            ANRGroups.Add("NCALW");
-            ANRGroups.Add("NGAYL");
-            ANRGroups.Add("NMACK");
-            ANRGroups.Add("NPINE");
-            ANRGroups.Add("NREED");
-            ANRGroups.Add("NSTCL");
-            ANRGroups.Add("NWOOL");
-            ANRGroups.Add("WBIRM");
-            ANRGroups.Add("WCALC");
-            ANRGroups.Add("WCALW");
-            ANRGroups.Add("WFLNT");
-            ANRGroups.Add("WMICH");
-            ANRGroups.Add("WMOOR");
         }
     }
 }

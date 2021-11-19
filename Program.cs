@@ -18,15 +18,13 @@ namespace DotLToExcel
 
                     if (IANR)
                     {
-                        parseFiles.ParseANRTables();
+                        parseFiles.ParseAllTables(true);
                     }
                     else
                     {
-                        parseFiles.ParseAllTables();
+                        parseFiles.ParseAllTables(false);
                     }
 
-                    Console.WriteLine("Creating Excel file.");
-                    parseFiles.CallExcel();
                     Console.WriteLine("Finished!");
                     Console.ReadLine();
                 }

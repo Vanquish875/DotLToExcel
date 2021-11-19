@@ -18,6 +18,10 @@
             "rtu_poll_delay.high ",     //<--Poll Delay
             "cmd_xtime",                //<--Overhead Processing Time
             "delay",                    //<--RTU Turnaround Time
+            "gasProtoInfo.tz_info.timezone",
+            "gasProtoInfo.tz_info.is_dst",
+            "gasProtoInfo.tz_info.rtu_auto_dst",
+            "cgltemplate",
             "lf_timeout",                //<--Timeout(Line Failure)
             "assetId.assetIdLoc ",
             "assetId.assetIdComment "

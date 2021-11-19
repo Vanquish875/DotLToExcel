@@ -1,5 +1,6 @@
 ﻿using DotLToExcel.POCOS;
 using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -7,8 +8,8 @@ namespace DotLToExcel.Excel
 {
     public class ExcelManager
     {
-        public void WriteToExcel(IList<Station> stations, IList<Remote> remotes, IList<Connection> connections, IList<Analog> analogs,
-            IList<Rate> rates, IList<Digital> status, IList<Multistate> multistates, IList<Message> messages, IList<CGLTemplateDef> cgls)
+        public void WriteToExcel(IEnumerable<Station> stations, IEnumerable<Remote> remotes, IEnumerable<Connection> connections, IEnumerable<Analog> analogs,
+            IEnumerable<Rate> rates, IEnumerable<Digital> status, IEnumerable<Multistate> multistates, IEnumerable<Message> messages, IEnumerable<CGLTemplateDef> cgls)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -46,6 +47,7 @@ namespace DotLToExcel.Excel
                 MessageWorksheet.Cells.LoadFromCollection(messages, true);
                 CGLWorksheet.Cells.LoadFromCollection(cgls, true);
 
+                Console.WriteLine("Creating Excel file.");
                 FileInfo excelFile = new FileInfo(@"E:\TCEnergy\DBMigration.xlsx");
                 excel.SaveAs(excelFile);
             }

@@ -17,12 +17,7 @@ namespace DotLToExcel
 
         public static bool CheckIfANROption(string argument2)
         {
-            if (argument2.ToLower().Equals("-a"))
-            {
-                return true;
-            }
-
-            return false;
+            return argument2.ToLower().Equals("-a");
         }
 
         public static bool CheckForDotLFiles(string path)
@@ -57,12 +52,7 @@ namespace DotLToExcel
 
         public static bool CheckFields(string line, string field)
         {
-            if (line.StartsWith(field))
-            {
-                return true;
-            }
-
-            return false;
+            return line.StartsWith(field);
         }
 
         public static string RemoveWhiteSpace(string input)
@@ -82,12 +72,7 @@ namespace DotLToExcel
 
         public static bool ReturnBoolKeyExistsDictionary(string remote, Dictionary<string, string> remoConJoin)
         {
-            if (remoConJoin.ContainsKey(remote))
-            {
-                return true;
-            }
-
-            return false;
+            return remoConJoin.ContainsKey(remote);
         }
 
         public static bool CheckIfCorrectTemplateName(string name)
@@ -129,6 +114,41 @@ namespace DotLToExcel
             }
 
             return false;
+        }
+
+        public static HashSet<string> LoadANRGroups()
+        {
+            var ANRGroups = new HashSet<string>
+            {
+                "ANR",
+                "EACAD",
+                "EALEX",
+                "ECELE",
+                "EDEFN",
+                "EDEFS",
+                "EDELH",
+                "EDELT",
+                "ESARD",
+                "EWETL",
+                "NBADN",
+                "NBADS",
+                "NBLUE",
+                "NCALW",
+                "NGAYL",
+                "NMACK",
+                "NPINE",
+                "NREED",
+                "NSTCL",
+                "NWOOL",
+                "WBIRM",
+                "WCALC",
+                "WCALW",
+                "WFLNT",
+                "WMICH",
+                "WMOOR"
+            };
+
+            return ANRGroups;
         }
     }
 }

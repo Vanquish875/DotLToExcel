@@ -7,7 +7,7 @@ namespace DotLToExcel.Mapping
 {
     public class ConnectionMapper
     {
-        public List<Connection> MapConnection(IList<string> data)
+        public IEnumerable<Connection> MapConnection(List<string> data)
         {
             int FieldLength = ConnectionFields.Fields.Length;
             var connections = new List<Connection>();
@@ -16,17 +16,7 @@ namespace DotLToExcel.Mapping
             {
                 for (int i = 0; i < data.Count; i += FieldLength)
                 {
-                    var connection = new Connection
-                    {
-                        Name = data[i],
-                        Omnicomm = data[i + 1],
-                        Group = data[i + 2],
-                        Description = data[i + 3],
-                        Message = data[i + 4],
-                        IP = data[i + 5],
-                        Port = Convert.ToInt32(data[i + 6])
-                    };
-                    connections.Add(connection);
+                    CreateConnection(data, connections, i);
                 }
             }
             catch (Exception ex)
@@ -36,7 +26,7 @@ namespace DotLToExcel.Mapping
             return connections;
         }
 
-        public List<Connection> MapConnection(IList<string> data, HashSet<string> anrData)
+        public IEnumerable<Connection> MapConnection(List<string> data, HashSet<string> anrData)
         {
             int FieldLength = ConnectionFields.Fields.Length;
             var connections = new List<Connection>();
@@ -47,17 +37,7 @@ namespace DotLToExcel.Mapping
                 {
                     if (anrData.Contains(data[i + 2]))
                     {
-                        var connection = new Connection
-                        {
-                            Name = data[i],
-                            Omnicomm = data[i + 1],
-                            Group = data[i + 2],
-                            Description = data[i + 3],
-                            Message = data[i + 4],
-                            IP = data[i + 5],
-                            Port = Convert.ToInt32(data[i + 6])
-                        };
-                        connections.Add(connection);
+                        CreateConnection(data, connections, i);
                     }
                 }
             }
@@ -66,6 +46,21 @@ namespace DotLToExcel.Mapping
                 Console.WriteLine(ex.ToString());
             }
             return connections;
+        }
+
+        private static void CreateConnection(List<string> data, List<Connection> connections, int i)
+        {
+            var connection = new Connection
+            {
+                Name = data[i],
+                Omnicomm = data[i + 1],
+                Group = data[i + 2],
+                Description = data[i + 3],
+                Message = data[i + 4],
+                IP = data[i + 5],
+                Port = Convert.ToInt32(data[i + 6])
+            };
+            connections.Add(connection);
         }
     }
 }

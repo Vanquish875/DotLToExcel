@@ -26,10 +26,10 @@
         public string LoCheck { get; set; }
         public string HiCheck { get; set; }
         public string HiHiCheck { get; set; }
-        public int LoLoLimit { get; set; }
-        public int LoLimit { get; set; }
-        public int HiLimit { get; set; }
-        public int HiHiLimit { get; set; }
+        public double LoLoLimit { get; set; }
+        public double LoLimit { get; set; }
+        public double HiLimit { get; set; }
+        public double HiHiLimit { get; set; }
         public string InstrumentFailCheck { get; set; }
         public string SafetyPoint { get; set; }
         public string CIP { get; set; }

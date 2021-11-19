@@ -7,7 +7,7 @@ namespace DotLToExcel.Mapping
 {
     public class CGLMapper
     {
-        public List<CGLTemplateDef> MapCGLTemplate(List<TemplateDef> data)
+        public IEnumerable<CGLTemplateDef> MapCGLTemplate(List<TemplateDef> data)
         {
             var templates = new List<CGLTemplateDef>();
 
@@ -216,6 +216,30 @@ namespace DotLToExcel.Mapping
                                 break;
                             case "Upload.METER.Periodic.DAILY.Run[08].Index.RegRW":
                                 template.Daily8Register = config.FieldValue;
+                                break;
+                            case "Upload.METER.Periodic.HOURLY.Run[09].DPPLoadType":
+                                template.Hourly9AGA = config.FieldValue;
+                                break;
+                            case "Upload.METER.Periodic.HOURLY.Run[09].Data.RecordLast":
+                                template.Hourly9Size = config.FieldValue;
+                                break;
+                            case "Upload.METER.Periodic.HOURLY.Run[09].Data.RegRW":
+                                template.Hourly9Array = config.FieldValue;
+                                break;
+                            case "Upload.METER.Periodic.HOURLY.Run[09].Index.RegRW":
+                                template.Hourly9Register = config.FieldValue;
+                                break;
+                            case "Upload.METER.Periodic.DAILY.Run[09].DPPLoadType":
+                                template.Daily9AGA = config.FieldValue;
+                                break;
+                            case "Upload.METER.Periodic.DAILY.Run[09].Data.RecordLast":
+                                template.Daily9Size = config.FieldValue;
+                                break;
+                            case "Upload.METER.Periodic.DAILY.Run[09].Data.RegRW":
+                                template.Daily9Array = config.FieldValue;
+                                break;
+                            case "Upload.METER.Periodic.DAILY.Run[09].Index.RegRW":
+                                template.Daily9Register = config.FieldValue;
                                 break;
                             default:
                                 break;
