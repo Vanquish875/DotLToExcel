@@ -57,19 +57,18 @@ namespace DotLToExcel.Classes
             if(parseANRTables)
             {
                 var ANRGroups = Helper.LoadANRGroups();
-
                 var ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
                 var (messages, outputMessages) = _messageMapper.MapMessages(messageList);
+                
                 var stations = _stationMapper.MapStation(stationList, ANRGroups);
                 var connections = _connectionMapper.MapConnection(connectionList, ANRGroups);
-
                 var remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote, ANRGroups);
                 var analogs = _analogMapper.MapAnalog(analogList, ANRGroups);
                 var rates = _rateMapper.MapRate(rateList, ANRGroups);
-
                 var status = _statusMapper.MapStatus(statusList, outputMessages, ANRGroups);
                 var multistates = _multistateMapper.MapMultistate(multistateList, ANRGroups);
                 var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
+                
                 var cgls = _CGLMapper.MapCGLTemplate(templates);
 
                 CallExcel(stations, remotes, connections, analogs, rates, status, multistates, messages, cgls);
@@ -78,17 +77,16 @@ namespace DotLToExcel.Classes
             {
                 var ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
                 var (messages, outputMessages) = _messageMapper.MapMessages(messageList);
+                
                 var stations = _stationMapper.MapStation(stationList);
-
                 var connections = _connectionMapper.MapConnection(connectionList);
                 var remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote);
-
                 var analogs = _analogMapper.MapAnalog(analogList);
                 var rates = _rateMapper.MapRate(rateList);
-
                 var status = _statusMapper.MapStatus(statusList, outputMessages);
                 var multistates = _multistateMapper.MapMultistate(multistateList);
                 var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
+                
                 var cgls = _CGLMapper.MapCGLTemplate(templates);
 
                 CallExcel(stations, remotes, connections, analogs, rates, status, multistates, messages, cgls);
