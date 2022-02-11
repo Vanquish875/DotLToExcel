@@ -10,20 +10,12 @@ namespace DotLToExcel
             try
             {
                 var filePath = Helper.ReturnFilePath(args[0]);
-                var IANR = Helper.CheckIfANROption(args[1]);
 
                 if (Helper.CheckForDotLFiles(filePath))
                 {
                     var parseFiles = new Worker(filePath);
 
-                    if (IANR)
-                    {
-                        parseFiles.ParseANRTables();
-                    }
-                    else
-                    {
-                        parseFiles.ParseAllTables();
-                    }
+                    parseFiles.ParseTablesByGroup();
 
                     Console.WriteLine("Creating Excel file.");
                     parseFiles.CallExcel();

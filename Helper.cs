@@ -15,16 +15,6 @@ namespace DotLToExcel
             return Directory.GetCurrentDirectory();
         }
 
-        public static bool CheckIfANROption(string argument2)
-        {
-            if (argument2.ToLower().Equals("-a"))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public static bool CheckForDotLFiles(string path)
         {
             bool connectionDotLExists = File.Exists(path + @"\connection.l");
@@ -52,22 +42,12 @@ namespace DotLToExcel
 
         public static string CleanFieldString(string line, string field)
         {
-            return RemoveWhiteSpace(line.Replace(field, ""));
+            return line.Replace(field, "").Trim();
         }
 
         public static bool CheckFields(string line, string field)
         {
-            if (line.StartsWith(field))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public static string RemoveWhiteSpace(string input)
-        {
-            return input.Trim();
+            return line.StartsWith(field);
         }
 
         public static string ReturnValFromDictionary(string key, Dictionary<string, string> dictionary)
@@ -82,12 +62,7 @@ namespace DotLToExcel
 
         public static bool ReturnBoolKeyExistsDictionary(string remote, Dictionary<string, string> remoConJoin)
         {
-            if (remoConJoin.ContainsKey(remote))
-            {
-                return true;
-            }
-
-            return false;
+            return remoConJoin.ContainsKey(remote);
         }
 
         public static bool CheckIfCorrectTemplateName(string name)
@@ -129,6 +104,38 @@ namespace DotLToExcel
             }
 
             return false;
+        }
+
+        public static HashSet<string> LoadGroups()
+        {
+            return new HashSet<string>
+            {
+                "EACAD",
+                "EALEX",
+                "ECELE",
+                "EDEFN",
+                "EDEFS",
+                "EDELH",
+                "EDELT",
+                "ESARD",
+                "EWETL",
+                "NBADN",
+                "NBADS",
+                "NBLUE",
+                "NCALW",
+                "NGAYL",
+                "NMACK",
+                "NPINE",
+                "NREED",
+                "NSTCL",
+                "NWOOL",
+                "WBIRM",
+                "WCALC",
+                "WCALW",
+                "WFLNT",
+                "WMICH",
+                "WMOOR"
+            };
         }
     }
 }

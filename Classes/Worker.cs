@@ -36,7 +36,6 @@ namespace DotLToExcel.Classes
         Dictionary<string, string> AnalogNames = new Dictionary<string, string>();
         Dictionary<string, string> StatusNames = new Dictionary<string, string>();
         Dictionary<string, string> OutputMessages = new Dictionary<string, string>();
-        HashSet<string> ANRGroups = new HashSet<string>();
 
         public Worker(string filePath)
         {
@@ -56,7 +55,7 @@ namespace DotLToExcel.Classes
             _CGLMapper = new CGLMapper();
         }
 
-        public void ParseAllTables()
+        public void ParseTablesByGroup()
         {
             var remConnJoinList = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
             var messageList = _parser.ProcessFile(filePath + @"\message.l", MessageFields.Fields);
@@ -69,47 +68,17 @@ namespace DotLToExcel.Classes
             var multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
             var cglTemplatesList = _parser.ProcessFile(filePath + @"\cgltemplatedef.l", CGLTemplateFields.Fields);
 
-            ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
-            messages = _messageMapper.MapMessages(messageList);
-            OutputMessages = _messageMapper.OutputMessages;
-            AnalogNames = _legacyNameMapper.MapLegacyNames(filePath, "AnalogNames.csv");
-            StatusNames = _legacyNameMapper.MapLegacyNames(filePath, "StatusNames.csv");
-            stations = _stationMapper.MapStation(stationList);
-            connections = _connectionMapper.MapConnection(connectionList);
-            remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote);
-            analogs = _analogMapper.MapAnalog(analogList, AnalogNames);
-            rates = _rateMapper.MapRate(rateList, AnalogNames);
-            status = _statusMapper.MapStatus(statusList, StatusNames, OutputMessages);
-            multistates = _multistateMapper.MapMultistate(multistateList);
-            var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
-            cgls = _CGLMapper.MapCGLTemplate(templates);
-        }
-
-        public void ParseANRTables()
-        {
-            var remConnJoinList = _parser.ProcessFile(filePath + @"\remconnjoin.l", RemConnFields.Fields);
-            var messageList = _parser.ProcessFile(filePath + @"\message.l", MessageFields.Fields);
-            var stationList = _parser.ProcessFile(filePath + @"\station.l", StationFields.Fields);
-            var connectionList = _parser.ProcessFile(filePath + @"\connection.l", ConnectionFields.Fields);
-            var remoteList = _parser.ProcessFile(filePath + @"\remote.l", RemoteFields.Fields);
-            var analogList = _parser.ProcessFile(filePath + @"\analog.l", AnalogFields.Fields);
-            var rateList = _parser.ProcessFile(filePath + @"\rate.l", RateFields.Fields);
-            var statusList = _parser.ProcessFile(filePath + @"\status.l", StatusFields.Fields);
-            var multistateList = _parser.ProcessFile(filePath + @"\multistate.l", MultistateFields.Fields);
-            var cglTemplatesList = _parser.ProcessFile(filePath + @"\cgltemplatedef.l", CGLTemplateFields.Fields);
-
-            LoadANRGroups();
 
             ConnectionRemote = _remConnJoinMapper.MapRemConnJoin(remConnJoinList);
             messages = _messageMapper.MapMessages(messageList);
             OutputMessages = _messageMapper.OutputMessages;
-            stations = _stationMapper.MapStation(stationList, ANRGroups);
-            connections = _connectionMapper.MapConnection(connectionList, ANRGroups);
-            remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote, ANRGroups);
-            analogs = _analogMapper.MapAnalog(analogList, ANRGroups);
-            rates = _rateMapper.MapRate(rateList, ANRGroups);
-            status = _statusMapper.MapStatus(statusList, OutputMessages, ANRGroups);
-            multistates = _multistateMapper.MapMultistate(multistateList, ANRGroups);
+            stations = _stationMapper.MapStation(stationList, Helper.LoadGroups());
+            connections = _connectionMapper.MapConnection(connectionList, Helper.LoadGroups());
+            remotes = _remoteMapper.MapRemote(remoteList, ConnectionRemote, Helper.LoadGroups());
+            analogs = _analogMapper.MapAnalog(analogList, Helper.LoadGroups());
+            rates = _rateMapper.MapRate(rateList, Helper.LoadGroups());
+            status = _statusMapper.MapStatus(statusList, OutputMessages, Helper.LoadGroups());
+            multistates = _multistateMapper.MapMultistate(multistateList, Helper.LoadGroups());
             var templates = _templateMapper.MapTemplateDef(cglTemplatesList);
             cgls = _CGLMapper.MapCGLTemplate(templates);
         }
@@ -118,35 +87,6 @@ namespace DotLToExcel.Classes
         {
             ExcelManager excel = new ExcelManager();
             excel.WriteToExcel(stations, remotes, connections, analogs, rates, status, multistates, messages, cgls);
-        }
-
-        public void LoadANRGroups()
-        {
-            ANRGroups.Add("EACAD");
-            ANRGroups.Add("EALEX");
-            ANRGroups.Add("ECELE");
-            ANRGroups.Add("EDEFN");
-            ANRGroups.Add("EDEFS");
-            ANRGroups.Add("EDELH");
-            ANRGroups.Add("EDELT");
-            ANRGroups.Add("ESARD");
-            ANRGroups.Add("EWETL");
-            ANRGroups.Add("NBADN");
-            ANRGroups.Add("NBADS");
-            ANRGroups.Add("NBLUE");
-            ANRGroups.Add("NCALW");
-            ANRGroups.Add("NGAYL");
-            ANRGroups.Add("NMACK");
-            ANRGroups.Add("NPINE");
-            ANRGroups.Add("NREED");
-            ANRGroups.Add("NSTCL");
-            ANRGroups.Add("NWOOL");
-            ANRGroups.Add("WBIRM");
-            ANRGroups.Add("WCALC");
-            ANRGroups.Add("WCALW");
-            ANRGroups.Add("WFLNT");
-            ANRGroups.Add("WMICH");
-            ANRGroups.Add("WMOOR");
         }
     }
 }
